@@ -35,7 +35,7 @@
                         </thead>
                         <tbody>
                             @foreach($certificates as $request)
-                            <tr>
+                            <tr class="text-center">
                                 <td>
                                     <input type="checkbox" name="certificates[]" 
                                         value="{{ $request->id }}">

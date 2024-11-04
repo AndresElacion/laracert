@@ -38,9 +38,9 @@
                                     <h3 class="text-xl font-semibold">{{ $event->name }}</h3>
                                     
                                     @if($event->event_date->isPast())
-                                        <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Past Event</span>
+                                        <span class="bg-gray-100 text-nowrap text-gray-800 text-xs px-2 py-1 rounded">Past Event</span>
                                     @else
-                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Upcoming</span>
+                                        <span class="bg-green-100 text-nowrap text-green-800 text-xs px-2 py-1 rounded">Upcoming</span>
                                     @endif
                                 </div>
 
@@ -98,19 +98,19 @@
                                             </span>
                                         </div>
                                     @endif
+                                    
+                                    @if (auth()->user()->is_admin)
+                                        <a href="{{ route('events.registrations.index', $event) }}" 
+                                        class="flex-1 block text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">
+                                            Manage Registrations
+                                        </a>
+                                    @endif
 
                                     <div class="flex space-x-2">
                                         <a href="{{ route('events.show', $event) }}" 
                                         class="flex-1 block text-center text-blue-500 hover:text-blue-700 transition-colors duration-200">
                                             View Details
                                         </a>
-                                        
-                                        @if (auth()->user()->is_admin)
-                                            <a href="{{ route('events.registrations.index', $event) }}" 
-                                            class="flex-1 block text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">
-                                                Manage Registrations
-                                            </a>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
