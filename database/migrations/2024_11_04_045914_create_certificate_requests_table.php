@@ -17,6 +17,9 @@ return new class extends Migration
             $table->enum('status', ['pending', 'approved', 'denied'])->default('pending');
             $table->text('denial_reason')->nullable();
             $table->timestamps();
+
+            // Prevent duplicate certificate requests
+            $table->unique(['event_registration_id']);
         });
     }
 

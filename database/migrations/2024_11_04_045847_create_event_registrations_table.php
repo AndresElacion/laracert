@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['registered', 'attended', 'absent'])->default('registered');
             $table->timestamps();
+
+            // preventing duplicate registration
+            $table->unique(['user_id', 'event_id']);
         });
     }
 
