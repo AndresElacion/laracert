@@ -33,10 +33,10 @@
                     @else
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($events as $event)
-                            <div class="border rounded-lg p-4 shadow hover:shadow-md transition-shadow duration-200">
+                            <div class="border rounded-lg p-4 shadow hover:shadow-md transition-shadow duration-200 flex flex-col">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="text-xl font-semibold">{{ $event->name }}</h3>
-                                    
+
                                     @if($event->event_date->isPast())
                                         <span class="bg-gray-100 text-nowrap text-gray-800 text-xs px-2 py-1 rounded">Past Event</span>
                                     @else
@@ -45,8 +45,8 @@
                                 </div>
 
                                 <p class="text-gray-600 mb-4 line-clamp-3">{{ $event->description }}</p>
-                                
-                                <div class="mb-4">
+
+                                <div class="mt-auto space-y-2">
                                     <div class="flex items-center text-sm text-gray-500">
                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -54,9 +54,7 @@
                                         </svg>
                                         {{ $event->event_date->format('F d, Y - h:i A') }}
                                     </div>
-                                </div>
 
-                                <div class="space-y-2">
                                     @if(!$event->event_date->isPast())
                                         @if(!$event->hasUserRegistered())
                                             <form action="{{ route('events.register', $event) }}" method="POST">
@@ -66,10 +64,6 @@
                                                     Register
                                                 </button>
                                             </form>
-                                        @else
-                                            <span class="block w-full text-center bg-gray-100 px-4 py-2 rounded">
-                                                Registered
-                                            </span>
                                         @endif
                                     @endif
 
@@ -98,7 +92,7 @@
                                             </span>
                                         </div>
                                     @endif
-                                    
+
                                     @if (auth()->user()->is_admin)
                                         <a href="{{ route('events.registrations.index', $event) }}" 
                                         class="flex-1 block text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">
@@ -116,6 +110,7 @@
                             </div>
                             @endforeach
                         </div>
+
 
                         <div class="mt-6">
                             {{ $events->links() }}

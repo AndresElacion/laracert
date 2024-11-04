@@ -17,7 +17,7 @@
                             </thead>
                             <tbody>
                                 @foreach($certificates as $certificate)
-                                <tr>
+                                <tr class="text-center">
                                     <td class="border px-4 py-2">
                                         {{ $certificate->eventRegistration->event->name }}
                                     </td>

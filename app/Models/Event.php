@@ -66,4 +66,16 @@ class Event extends Model
 
         return $registration ? $registration->certificateRequest->status : null;
     }
+
+    public function getUserCertificate()
+    {
+        $registration = $this->registrations()
+            ->where('user_id', Auth::id())
+            ->whereHas('certificateRequest')
+            ->with('certificateRequest')
+            ->first();
+
+        return $registration ? $registration->certificateRequest : null;
+    }
+
 }
