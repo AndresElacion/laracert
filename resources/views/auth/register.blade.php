@@ -1,19 +1,61 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
 
-        <!-- Name -->
+        <!-- First Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="first_name" :value="__('First Name')" />
+            <x-text-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus />
+            <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
         </div>
 
-        <!-- Email Address -->
+        <!-- Middle Name -->
+        <div class="mt-4">
+            <x-input-label for="middle_name" :value="__('Middle Name')" />
+            <x-text-input id="middle_name" class="block mt-1 w-full" type="text" name="middle_name" :value="old('middle_name')" />
+            <x-input-error :messages="$errors->get('middle_name')" class="mt-2" />
+        </div>
+
+        <!-- Last Name -->
+        <div class="mt-4">
+            <x-input-label for="last_name" :value="__('Last Name')" />
+            <x-text-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required />
+            <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
+        </div>
+
+        {{-- Email --}}
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- ID Number -->
+        <div class="mt-4">
+            <x-input-label for="id_number" :value="__('ID Number')" />
+            <x-text-input id="id_number" class="block mt-1 w-full" type="text" name="id_number" :value="old('id_number')" required />
+            <x-input-error :messages="$errors->get('id_number')" class="mt-2" />
+        </div>
+
+        <!-- Section -->
+        <div class="mt-4">
+            <x-input-label for="section" :value="__('Section')" />
+            <x-text-input id="section" class="block mt-1 w-full" type="text" name="section" :value="old('section')" required />
+            <x-input-error :messages="$errors->get('section')" class="mt-2" />
+        </div>
+
+        <!-- Year -->
+        <div class="mt-4">
+            <x-input-label for="year" :value="__('Year')" />
+            <x-text-input id="year" class="block mt-1 w-full" type="text" name="year" :value="old('year')" required />
+            <x-input-error :messages="$errors->get('year')" class="mt-2" />
+        </div>
+
+        <!-- Student ID Image -->
+        <div class="mt-4">
+            <x-input-label for="student_id_image" :value="__('Student ID Image')" />
+            <x-text-input id="student_id_image" class="block mt-1 w-full" type="file" name="student_id_image" required />
+            <x-input-error :messages="$errors->get('student_id_image')" class="mt-2" />
         </div>
 
         <!-- Password -->

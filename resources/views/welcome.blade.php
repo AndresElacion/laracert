@@ -50,13 +50,8 @@
                     </header>
 
                     <!-- Hero -->
-                    <section id="hero" class="relative bg-cover bg-center h-96" style="background-image: url('./img/hero.webp');">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-start">
-                            <div class="container mx-auto">
-                                <h1 class="text-white text-5xl font-bold mb-4 uppercase">e-certification</h1>
-                                <p class="text-white text-5xl font-bold mb-4 uppercase">maker</p>
-                            </div>
-                        </div>
+                    <section id="hero" class="relative h-[43rem] overflow-hidden">
+                        <img src="./img/Hero.png" alt="Hero Background" class="absolute inset-0 w-full h-full object-cover">
                     </section>
 
                     <!-- About -->
@@ -211,18 +206,8 @@
                             const content = document.getElementById(itemId);
                             const arrow = document.getElementById('arrow-' + itemId);
 
-                            if (content.classList.contains('hidden')) {
-                                content.classList.remove('hidden');
-                                arrow.classList.add('rotate-90');
-                            } else {
-                                const allContents = document.querySelectorAll('.accordion-content');
-                                const allArrows = document.querySelectorAll('svg');
-                                allContents.forEach((c) => c.classList.remove('active'));
-                                allArrows.forEach((a) => a.classList.remove('transform', 'rotate-90'));
-
-                                content.classList.add('hidden');
-                                arrow.classList.remove('rotate-90');
-                            }
+                            content.classList.toggle('hidden');
+                            arrow.classList.toggle('rotate-90');
                         }
                     </script>
                 </div>
