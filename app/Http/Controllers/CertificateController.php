@@ -42,15 +42,28 @@ class CertificateController extends Controller
 
     public function download($id)
     {
-        $request = CertificateRequest::findOrFail($id); // Retrieve the instance using the ID
+        $certificate = CertificateRequest::findOrFail($id);
 
-        if ($request->status !== 'approved') {
+        // First check if certificate is approved
+        if ($certificate->status !== 'approved') {
             return back()->with('error', 'Certificate must be approved before downloading');
         }
 
-        $pdf = $this->generateCertificate($request);
+        // Check if user is admin
+        if (!Auth::user()->is_admin === true) {
+            // Only apply download restriction for non-admin users
+            if ($certificate->downloaded_at) {
+                return back()->with('error', 'Certificate has already been downloaded.');
+            }
+            
+            // Update the downloaded_at timestamp for non-admin users
+            $certificate->update(['downloaded_at' => now()]);
+        }
 
-        return $pdf->download('certificate_' . $request->id . '.pdf');
+        // Generate PDF
+        $pdf = $this->generateCertificate($certificate);
+
+        return $pdf->download('certificate_' . $certificate->id . '.pdf');
     }
 
     private function generateCertificate(CertificateRequest $request)
