@@ -35,10 +35,14 @@
                                     </td>
                                     <td class="border px-4 py-2">
                                         @if($certificate->status === 'approved')
-                                            <a href="{{ route('certificates.download', $certificate) }}" 
-                                               class="text-blue-500 hover:text-blue-700">
-                                                Download
-                                            </a>
+                                            @if(!$certificate->downloaded_at)
+                                                <a href="{{ route('certificates.download', $certificate) }}" 
+                                                class="text-blue-500 hover:text-blue-700">
+                                                    Download
+                                                </a>
+                                            @else
+                                                <span class="text-gray-500">Certificate Downloaded</span>
+                                            @endif
                                         @elseif($certificate->status === 'denied')
                                             <span class="text-red-500" title="{{ $certificate->denial_reason }}">
                                                 View Reason
