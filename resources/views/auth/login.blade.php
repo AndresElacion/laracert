@@ -5,8 +5,8 @@
 
             <h1 class="text-3xl text-slate-800 font-bold mb-6 text-center">Welcome back! ✨</h1>
 
-            <!-- Sign Up Button -->
-            <div class="pt-5 mt-6 border-t border-slate-200 text-center">
+            <!-- Sign Up / Login -->
+            <div class="pt-5 my-6 border-t border-slate-200 text-center">
                 <div class="text-sm space-x-5">
                     <a href="{{ route('login')}}" 
                         class="border border-transparent rounded-md font-semibold text-xs px-4 py-2 mt-2 bg-pink-500 hover:bg-pink-600 text-white transition-colors duration-200">

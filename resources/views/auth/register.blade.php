@@ -5,6 +5,20 @@
 
             <h1 class="text-3xl text-slate-800 font-bold mb-6 text-center">Register</h1>
 
+            <!-- Sign Up / Login -->
+            <div class="pt-5 my-6 border-t border-slate-200 text-center">
+                <div class="text-sm space-x-5">
+                    <a href="{{ route('login')}}" 
+                        class="border border-transparent rounded-md font-semibold text-xs px-4 py-2 mt-2 bg-gray-400 hover:bg-pink-600 text-white transition-colors duration-200">
+                        Login
+                    </a>
+                    <a href="{{ route('register')}}" 
+                        class="border border-transparent rounded-md font-semibold text-xs px-4 py-2 mt-2 bg-pink-500 hover:bg-pink-600 text-white transition-colors duration-200">
+                        Sign up
+                    </a>
+                </div>
+            </div>
+
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
 
