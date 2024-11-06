@@ -98,7 +98,9 @@
                                 <!-- Image Preview -->
                                 <div id="imagePreview" class="hidden mt-4">
                                     <p class="text-sm text-gray-500 mb-2">Preview:</p>
-                                    <img id="preview" src="#" alt="Template preview" class="max-w-md rounded-lg shadow-sm">
+                                    <img src="{{ asset('storage/' . $event->certificate_template) }}" 
+                                    alt="Current certificate template" 
+                                    class="max-w-md rounded-lg shadow-sm">
                                 </div>
 
                                 @error('certificate_template')
@@ -125,6 +127,7 @@
         </div>
     </div>
 
+    
     <!-- Add this script for image preview -->
     <script>
         function previewImage(input) {

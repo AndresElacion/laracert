@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    protected $fillable = ['name', 'description', 'event_date', 'certificate_template'];
+    protected $guarded = [];
     
     protected $casts = [
         'event_date' => 'datetime'

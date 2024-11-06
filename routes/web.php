@@ -38,5 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/certificate-requests/{id}/approve', [DashboardController::class, 'approve'])->name('certificate-requests.approve');
     Route::post('/certificate-requests/{id}/deny', [DashboardController::class, 'deny'])->name('certificate-requests.deny');
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
 });
 require __DIR__.'/auth.php';
