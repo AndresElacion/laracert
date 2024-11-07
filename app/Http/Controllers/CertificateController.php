@@ -75,13 +75,16 @@ class CertificateController extends Controller
             'certificate' => $request
         ]);
 
-        // Optional: Configure PDF settings
+        // Configure PDF settings
         $pdf->setPaper('a4', 'landscape');
         $pdf->setOptions([
-            'dpi' => 150,
+            'dpi' => 300,
             'defaultFont' => 'sans-serif',
             'isHtml5ParserEnabled' => true,
-            'isRemoteEnabled' => true
+            'isRemoteEnabled' => true,
+            'chroot' => public_path('storage'),
+            'enable_php' => true,
+            'enable_remote' => true
         ]);
 
         return $pdf;

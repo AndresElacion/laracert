@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use App\Models\Department;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
 
 class RegisteredUserController extends Controller
 {
@@ -19,7 +20,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $departments = Department::orderBy('created_at', 'desc')->get();
+        
+        return view('auth.register', [
+            'departments' => $departments
+        ]);
     }
 
     /**
@@ -35,6 +40,7 @@ class RegisteredUserController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'id_number' => ['required', 'string', 'max:255', 'unique:users,id_number'],
             'section' => ['required', 'string', 'max:255'],
+            'department_id' => ['nullable', 'string'],
             'year' => ['required', 'string', 'max:4'],
             'student_id_image' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
@@ -52,6 +58,7 @@ class RegisteredUserController extends Controller
             'last_name' => $request->last_name,
             'id_number' => $request->id_number,
             'section' => $request->section,
+            'department_id' => $request->department_id,
             'year' => $request->year,
             'student_id_image' => $studentIdImagePath ?? null,
             'email' => $request->email,
