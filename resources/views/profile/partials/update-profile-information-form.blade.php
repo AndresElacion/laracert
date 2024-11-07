@@ -50,6 +50,17 @@
                 <x-input-error class="mt-2" :messages="$errors->get('section')" />
             </div>
 
+            <!-- Department Field -->
+            <div>
+                <x-input-label for="department_id" :value="__('Department')" />
+                <select name="department_id" id="department_id" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                    @foreach($departments as $department)
+                        <option {{ $user->department_id == $department->id ? 'selected' : '' }} value="{{ $department->id }}">{{ $department->name }}</option>
+                    @endforeach
+                </select>
+                <x-input-error class="mt-2" :messages="$errors->get('department_id')" />
+            </div>
+
             <!-- Year Field -->
             <div>
                 <x-input-label for="year" :value="__('Year')" />

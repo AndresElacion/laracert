@@ -62,6 +62,18 @@
                         <x-input-error :messages="$errors->get('id_number')" class="mt-2" />
                     </div>
 
+                    <!-- Department -->
+                    <div>
+                        <x-input-label for="department_id" :value="__('Department')" />
+                        <select name="department_id" id="department_id">
+                            <option value="">Choose department</option>
+                            @foreach($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('id_number')" class="mt-2" />
+                    </div>
+
                     <!-- Section -->
                     <div>
                         <x-input-label for="section" :value="__('Section')" />
