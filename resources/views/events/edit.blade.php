@@ -64,48 +64,13 @@
                                 Certificate Template
                             </label>
                             <div class="mt-2 space-y-4">
-                                @if($event->certificate_template)
+                                @if($event->certificateTemplateCategory->certificate_template)
                                     <div class="mb-4">
-                                        <p class="text-sm text-gray-500 mb-2">Current template:</p>
-                                        <img src="{{ Storage::url($event->certificate_template) }}" 
+                                        <img src="{{ Storage::url($event->certificateTemplateCategory->certificate_template) }}" 
                                              alt="Current certificate template" 
                                              class="max-w-md rounded-lg shadow-sm">
                                     </div>
                                 @endif
-
-                                <div class="flex items-center justify-center w-full">
-                                    <label for="certificate_template" 
-                                           class="w-full flex flex-col items-center px-4 py-6 bg-white rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-50">
-                                        <div class="flex flex-col items-center">
-                                            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                      d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                            </svg>
-                                            <p class="mt-2 text-sm text-gray-500">
-                                                <span class="font-semibold">Click to upload</span> or drag and drop
-                                            </p>
-                                            <p class="text-xs text-gray-500">JPG, JPEG, PNG (Max. 5MB)</p>
-                                        </div>
-                                        <input type="file" 
-                                               name="certificate_template" 
-                                               id="certificate_template"
-                                               accept=".jpg,.jpeg,.png"
-                                               class="hidden"
-                                               onchange="previewImage(this)">
-                                    </label>
-                                </div>
-                                
-                                <!-- Image Preview -->
-                                <div id="imagePreview" class="hidden mt-4">
-                                    <p class="text-sm text-gray-500 mb-2">Preview:</p>
-                                    <img src="{{ asset('storage/' . $event->certificate_template) }}" 
-                                    alt="Current certificate template" 
-                                    class="max-w-md rounded-lg shadow-sm">
-                                </div>
-
-                                @error('certificate_template')
-                                    <p class="text-sm text-red-600">{{ $message }}</p>
-                                @enderror
                             </div>
                         </div>
 
@@ -126,24 +91,4 @@
             </div>
         </div>
     </div>
-
-    
-    <!-- Add this script for image preview -->
-    <script>
-        function previewImage(input) {
-            const preview = document.getElementById('preview');
-            const previewDiv = document.getElementById('imagePreview');
-            
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    previewDiv.classList.remove('hidden');
-                }
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
 </x-app-layout>

@@ -56,10 +56,13 @@
                             </label>
                             <select id="certificate_template_category_id" 
                                     name="certificate_template_category_id" 
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                    onchange="showCategoryTemplatePreview(this)">
                                 <option value="">Select a category</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" data-image="{{ asset('storage/' . $category->certificate_template) }}">
+                                        {{ $category->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('certificate_template_category_id')
@@ -67,41 +70,10 @@
                             @enderror
                         </div>
 
-                        <div>
-                            <label for="certificate_template" class="block text-sm font-medium text-gray-700">
-                                Certificate Template
-                            </label>
-                            <div class="mt-2 space-y-4">
-                                <div class="flex items-center justify-center w-full">
-                                    <label for="certificate_template" 
-                                           class="w-full flex flex-col items-center px-4 py-6 bg-white rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-50">
-                                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                        </svg>
-                                        <p class="mt-2 text-sm text-gray-500">
-                                            <span class="font-semibold">Click to upload</span> or drag and drop
-                                        </p>
-                                        <p class="text-xs text-gray-500">JPG, JPEG, PNG (Max. 5MB)</p>
-                                        <input type="file" 
-                                               name="certificate_template" 
-                                               id="certificate_template"
-                                               accept=".jpg,.jpeg,.png"
-                                               class="hidden"
-                                               onchange="previewImage(this)">
-                                    </label>
-                                </div>
-
-                                <!-- Image Preview -->
-                                <div id="imagePreview" class="hidden mt-4">
-                                    <p class="text-sm text-gray-500 mb-2">Preview:</p>
-                                    <img id="preview" src="#" alt="Template preview" class="max-w-md rounded-lg shadow-sm">
-                                </div>
-
-                                @error('certificate_template')
-                                    <p class="text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
+                        <!-- Template Category Image Preview -->
+                        <div id="categoryTemplatePreview" class="hidden mt-4">
+                            <p class="text-sm text-gray-500 mb-2">Preview of the selected category template:</p>
+                            <img id="categoryTemplate" src="#" alt="Category Template Preview" class="max-w-md rounded-lg shadow-sm">
                         </div>
 
                         <div class="flex justify-end pt-4">
@@ -116,7 +88,6 @@
         </div>
     </div>
 
-    <!-- Add this script for image preview -->
     <script>
         function previewImage(input) {
             const preview = document.getElementById('preview');
@@ -131,6 +102,19 @@
                 }
                 
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function showCategoryTemplatePreview(select) {
+            const categoryImage = select.selectedOptions[0].getAttribute('data-image');
+            const previewDiv = document.getElementById('categoryTemplatePreview');
+            const categoryTemplate = document.getElementById('categoryTemplate');
+            
+            if (categoryImage) {
+                categoryTemplate.src = categoryImage;
+                previewDiv.classList.remove('hidden');
+            } else {
+                previewDiv.classList.add('hidden');
             }
         }
     </script>
