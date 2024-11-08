@@ -14,6 +14,7 @@ class EventSeeder extends Seeder
      */
     public function run(): void
     {
+        // php artisan db:seed --class=EventSeeder
         Event::create([
             'name' => 'Web Development Workshop',
             'description' => 'Learn the basics of web development with HTML, CSS, and JavaScript.',

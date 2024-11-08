@@ -13,6 +13,7 @@ class DepartmentSeeder extends Seeder
      */
     public function run(): void
     {
+        // php artisan db:seed --class=DepartmentSeeder
         Department::create([
             'name' => 'CS',
         ]);

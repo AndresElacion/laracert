@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\CertificateTemplateCategory;
 
 class EventController extends Controller
 {
@@ -16,6 +17,7 @@ class EventController extends Controller
             ->orWhereHas('registrations', function($query) {
                 $query->where('user_id', Auth::id());
             })
+            ->with('certificateTemplateCategory') // Eager load categories
             ->orderBy('event_date')
             ->paginate(9); // 9 items for 3x3 grid
 
@@ -24,6 +26,7 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
+        $event->load('certificateTemplateCategory'); // Ensure category is loaded
         return view('events.show', compact('event'));
     }
 
@@ -49,7 +52,8 @@ class EventController extends Controller
 
     public function create()
     {
-        return view('events.create');
+        $categories = CertificateTemplateCategory::orderBy('name')->get();
+        return view('events.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -58,6 +62,7 @@ class EventController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'event_date' => 'required|date|after:today',
+            'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
             'certificate_template' => 'nullable|file|mimes:jpg,jpeg,png|max:5120'
         ]);
 
@@ -72,12 +77,19 @@ class EventController extends Controller
             ->with('success', 'Event created successfully');
     }
 
+    public function edit(Event $event)
+    {
+        $categories = CertificateTemplateCategory::orderBy('name')->get();
+        return view('events.edit', compact('event', 'categories'));
+    }
+
     public function update(Request $request, Event $event)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'event_date' => 'required|date',
+            'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
             'certificate_template' => 'nullable|image|mimes:jpg,jpeg,png|max:5120', // 5MB max
         ]);
 
@@ -99,23 +111,22 @@ class EventController extends Controller
             ->with('success', 'Event updated successfully');
     }
 
-    public function edit(Event $event)
-    {
-        return view('events.edit', compact('event'));
-    }
-
     public function updateTemplate(Request $request, Event $event)
     {
-        $request->validate([
+        $validated = $request->validate([
             'certificate_template' => 'required|file|mimes:jpg,jpeg,png|max:5120', // 5MB max
+            'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
         ]);
 
         if ($event->certificate_template) {
             Storage::delete($event->certificate_template);
         }
         
-        $path = $request->file('certificate_template')->store('certificates');
-        $event->update(['certificate_template' => $path]);
+        $path = $request->file('certificate_template')->store('certificates', 'public');
+        $event->update([
+            'certificate_template' => $path,
+            'certificate_template_category_id' => $request->certificate_template_category_id,
+        ]);
 
         return back()->with('success', 'Certificate template updated successfully');
     }

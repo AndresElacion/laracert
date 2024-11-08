@@ -78,4 +78,8 @@ class Event extends Model
         return $registration ? $registration->certificateRequest : null;
     }
 
+    public function certificateTemplateCategory()
+    {
+        return $this->belongsTo(CertificateTemplateCategory::class);
+    }
 }

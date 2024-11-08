@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\EventRegistrationController;
+use App\Http\Controllers\CertificateTemplateCategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -41,4 +42,29 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
 });
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/certificate-categories', [CertificateTemplateCategoryController::class, 'index'])
+        ->name('admin.certificate-categories.index');
+    
+    Route::get('/certificate-categories/create', [CertificateTemplateCategoryController::class, 'create'])
+        ->name('admin.certificate-categories.create');
+    
+    Route::post('/certificate-categories', [CertificateTemplateCategoryController::class, 'store'])
+        ->name('admin.certificate-categories.store');
+    
+    Route::get('/certificate-categories/{certificate_category}', [CertificateTemplateCategoryController::class, 'show'])
+        ->name('admin.certificate-categories.show');
+    
+    Route::get('/certificate-categories/{certificate_category}/edit', [CertificateTemplateCategoryController::class, 'edit'])
+        ->name('admin.certificate-categories.edit');
+    
+    Route::put('/certificate-categories/{certificate_category}', [CertificateTemplateCategoryController::class, 'update'])
+        ->name('admin.certificate-categories.update');
+    
+    Route::delete('/certificate-categories/{certificate_category}', [CertificateTemplateCategoryController::class, 'destroy'])
+        ->name('admin.certificate-categories.destroy');
+});
+
+
 require __DIR__.'/auth.php';
