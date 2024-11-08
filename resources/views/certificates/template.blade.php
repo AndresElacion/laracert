@@ -53,7 +53,7 @@
 <body>
     <div class="certificate">
         <!-- Background image positioning controlled by .background class -->
-        <img class="background" src="{{ public_path('storage/' . $event->certificate_template) }}" />
+        <img class="background" src="{{ public_path('storage/' . $event->certificateTemplateCategory->certificate_template) }}" />
         
         <!-- Main content wrapper - center everything inside -->
         <div class="content-wrapper">
