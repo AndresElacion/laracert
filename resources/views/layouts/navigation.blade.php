@@ -31,6 +31,10 @@
                     <x-nav-link :href="route('admin.certificate-categories.index')" :active="request()->routeIs('admin.certificate-categories.index')">
                         {{ __('Create Certificate Category') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                        {{ __('Manage Users') }}
+                    </x-nav-link>
                 </div>
             </div>
 
