@@ -32,9 +32,15 @@
                         {{ __('Create Certificate Category') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                        {{ __('Manage Users') }}
-                    </x-nav-link>
+                    @if(Auth::user()->is_admin)
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                            {{ __('Manage Users') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('coordinators.index')" :active="request()->routeIs('coordinators.index')">
+                            {{ __('Manage Coordinators') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

@@ -62,6 +62,10 @@
                 <h3>has successfully participated in</h3>
                 <h3><strong>{{ $event->name }}</strong></h3>
                 <h3>on {{ $event->event_date->format('F d, Y') }}</h3>
+                
+                @foreach($certificate->eventRegistration->event->coordinators as $coordinator)
+                    <p>{{ $coordinator->name}}</p>
+                @endforeach
             </div>
         </div>
     </div>
