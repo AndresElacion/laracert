@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Coordinator;
 use Illuminate\Http\Request;
+use App\Models\EventCoordinator;
+use App\Models\Event_coordinator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\CertificateTemplateCategory;
+use Illuminate\Support\Carbon;
 
 class EventController extends Controller
 {
@@ -18,6 +22,9 @@ class EventController extends Controller
                 $query->where('user_id', Auth::id());
             })
             ->with('certificateTemplateCategory') // Eager load categories
+            ->with(['eventCoordinators' => function($query){
+                        $query->with(['coordinators']);
+                    }])
             ->orderBy('event_date')
             ->paginate(9); // 9 items for 3x3 grid
 
@@ -26,7 +33,10 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        $event->load('certificateTemplateCategory'); // Ensure category is loaded
+        $event->load('certificateTemplateCategory')
+        ->with(['eventCoordinators' => function($query){
+                        $query->with(['coordinators']);
+                    }]); // Ensure category is loaded
         return view('events.show', compact('event'));
     }
 
@@ -53,7 +63,11 @@ class EventController extends Controller
     public function create()
     {
         $categories = CertificateTemplateCategory::orderBy('name')->get();
-        return view('events.create', compact('categories'));
+        $coordinators = Coordinator::orderBy('name')->get();
+        return view('events.create', compact(
+            'categories',
+            'coordinators'
+        ));
     }
 
     public function store(Request $request)
@@ -63,7 +77,8 @@ class EventController extends Controller
             'description' => 'required|string',
             'event_date' => 'required|date|after:today',
             'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
-            'certificate_template' => 'nullable|file|mimes:jpg,jpeg,png|max:5120'
+            'coordinator_id' => 'required|array|max:5',
+            'coordinator_id.*' => 'required|exists:coordinators,id'
         ]);
 
         if ($request->hasFile('certificate_template')) {
@@ -71,7 +86,21 @@ class EventController extends Controller
             $validated['certificate_template'] = $path;
         }
 
-        Event::create($validated);
+        $coordinators = $validated['coordinator_id'];
+
+        unset($validated['coordinator_id']);
+
+        $coordinators = is_array($coordinators) ? $coordinators : (array) $coordinators;
+
+       // Create the event and retrieve the ID
+        $event = Event::create($validated);
+
+        foreach ($coordinators as $coordinator_id) {
+            EventCoordinator::create([
+                'event_id' => $event->id, // Use $event->id instead of $id directly
+                'coordinator_id' => $coordinator_id,
+            ]);
+        }
 
         return redirect()->route('events.index')
             ->with('success', 'Event created successfully');
@@ -80,7 +109,8 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $categories = CertificateTemplateCategory::orderBy('name')->get();
-        return view('events.edit', compact('event', 'categories'));
+        $coordinators = Coordinator::orderBy('name')->get();
+        return view('events.edit', compact('event', 'categories', 'coordinators'));
     }
 
     public function update(Request $request, Event $event)
@@ -90,7 +120,8 @@ class EventController extends Controller
             'description' => 'required|string',
             'event_date' => 'required|date',
             'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
-            'certificate_template' => 'nullable|image|mimes:jpg,jpeg,png|max:5120', // 5MB max
+            'coordinator_id' => 'array|max:5',
+            'coordinator_id.*' => 'required|exists:coordinators,id'
         ]);
 
         if ($request->hasFile('certificate_template')) {
@@ -104,7 +135,12 @@ class EventController extends Controller
             $validated['certificate_template'] = $path;
         }
 
+        $coordinators = $validated['coordinator_id'] ?? [];
+        unset($validated['coordinator_id']);
+
         $event->update($validated);
+
+        $event->coordinators()->sync($coordinators);
 
         return redirect()
             ->route('events.show', $event)

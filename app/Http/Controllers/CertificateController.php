@@ -42,8 +42,17 @@ class CertificateController extends Controller
 
     public function download($id)
     {
-        $certificate = CertificateRequest::findOrFail($id);
+        $certificate = CertificateRequest::with([
+            'eventRegistration' => function($query){
+                $query->with(['event' => function($query){
+                    $query->with(['eventCoordinators' => function($query){
+                        $query->with(['coordinators']);
+                    }]);
+                }]);
+            }
+        ])->findOrFail($id);
 
+        // dd($certificate->eventRegistration->event->coordinators->count());
         // First check if certificate is approved
         if ($certificate->status !== 'approved') {
             return back()->with('error', 'Certificate must be approved before downloading');
