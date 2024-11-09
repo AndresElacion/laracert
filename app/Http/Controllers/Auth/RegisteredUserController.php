@@ -3,38 +3,30 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use Illuminate\View\View;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Storage;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
-    public function create(): View
+    public function index()
     {
-        $departments = Department::orderBy('created_at', 'desc')->get();
-        
-        return view('auth.register', [
-            'departments' => $departments
-        ]);
+        $users = User::orderBy('created_at', 'desc')->paginate(10);
+        return view('users.index', compact('users'));
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request): RedirectResponse
+    public function create()
     {
-        $request->validate([
+        $departments = Department::orderBy('created_at', 'desc')->get();
+        return view('users.create', compact('departments'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'middle_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -44,27 +36,88 @@ class RegisteredUserController extends Controller
             'year' => ['required', 'string', 'max:4'],
             'student_id_image' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', Rules\Password::defaults()],
+            'is_admin' => ['boolean'],
         ]);
 
-        // Handle the student ID image upload
         if ($request->hasFile('student_id_image')) {
             $studentIdImagePath = $request->file('student_id_image')->store('student_id_images', 'public');
         }
 
         User::create([
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name,
-            'last_name' => $request->last_name,
-            'id_number' => $request->id_number,
-            'section' => $request->section,
-            'department_id' => $request->department_id,
-            'year' => $request->year,
+            'first_name' => $validated['first_name'],
+            'middle_name' => $validated['middle_name'],
+            'last_name' => $validated['last_name'],
+            'id_number' => $validated['id_number'],
+            'section' => $validated['section'],
+            'department_id' => $validated['department_id'],
+            'year' => $validated['year'],
             'student_id_image' => $studentIdImagePath ?? null,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'is_admin' => $request->boolean('is_admin', false),
         ]);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
+    }
+
+    public function edit(User $user)
+    {
+        $departments = Department::orderBy('created_at', 'desc')->get();
+        return view('users.edit', compact('user', 'departments'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['nullable', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'id_number' => ['required', 'string', 'max:255', 'unique:users,id_number,' . $user->id],
+            'section' => ['required', 'string', 'max:255'],
+            'department_id' => ['nullable', 'string'],
+            'year' => ['required', 'string', 'max:4'],
+            'student_id_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'password' => ['nullable', Rules\Password::defaults()],
+            'is_admin' => ['boolean'],
+        ]);
+
+        if ($request->hasFile('student_id_image')) {
+            // Delete old image if exists
+            if ($user->student_id_image) {
+                Storage::disk('public')->delete($user->student_id_image);
+            }
+            $studentIdImagePath = $request->file('student_id_image')->store('student_id_images', 'public');
+            $user->student_id_image = $studentIdImagePath;
+        }
+
+        $user->first_name = $validated['first_name'];
+        $user->middle_name = $validated['middle_name'];
+        $user->last_name = $validated['last_name'];
+        $user->id_number = $validated['id_number'];
+        $user->section = $validated['section'];
+        $user->department_id = $validated['department_id'];
+        $user->year = $validated['year'];
+        $user->email = $validated['email'];
+        $user->is_admin = $request->boolean('is_admin', false);
+
+        if ($validated['password']) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+    }
+
+    public function destroy(User $user)
+    {
+        if ($user->student_id_image) {
+            Storage::disk('public')->delete($user->student_id_image);
+        }
+        
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
 }

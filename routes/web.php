@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\EventRegistrationController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CertificateTemplateCategoryController;
 
 Route::get('/', function () {
@@ -41,6 +42,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/certificate-requests/{id}/deny', [DashboardController::class, 'deny'])->name('certificate-requests.deny');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::get('/users', [RegisteredUserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [RegisteredUserController::class, 'create'])->name('users.create');
+    Route::post('/users', [RegisteredUserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [RegisteredUserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [RegisteredUserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy');
+
 });
 
 Route::middleware(['auth'])->group(function () {
