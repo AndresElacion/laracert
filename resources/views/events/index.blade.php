@@ -33,7 +33,7 @@
                     @else
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($events as $event)
-                            <div class="border rounded-lg p-4 shadow hover:shadow-md transition-shadow duration-200 flex flex-col">
+                            <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="text-xl font-semibold">{{ $event->name }}</h3>
 
