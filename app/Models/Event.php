@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Coordinator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
@@ -81,5 +82,18 @@ class Event extends Model
     public function certificateTemplateCategory()
     {
         return $this->belongsTo(CertificateTemplateCategory::class);
+    }
+
+    public function eventCoordinators()
+    {
+        return $this->hasMany(EventCoordinator::class);
+    }
+
+    // Relationship to Coordinator through EventCoordinator
+    public function coordinators()
+    {
+        return $this->belongsToMany(Coordinator::class, 'event_coordinators')
+                    ->withPivot('event_id', 'coordinator_id')
+                    ->withTimestamps();
     }
 }
