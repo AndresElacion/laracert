@@ -5,6 +5,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\EventRegistrationController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CertificateTemplateCategoryController;
@@ -48,6 +49,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/{user}/edit', [RegisteredUserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{user}', [RegisteredUserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/coordinators', [CoordinatorController::class, 'index'])->name('coordinators.index');
+    Route::get('/coordinators/create', [CoordinatorController::class, 'create'])->name('coordinators.create');
+    Route::post('/coordinators/store', [CoordinatorController::class, 'store'])->name('coordinators.store');
+    Route::get('/coordinators/{coordinator}/edit', [CoordinatorController::class, 'edit'])->name('coordinators.edit');
+    Route::put('/coordinators/{coordinator}', [CoordinatorController::class, 'update'])->name('coordinators.update');
+    Route::delete('/coordinators/{coordinator}', [CoordinatorController::class, 'destroy'])->name('coordinators.destroy');
 
 });
 
