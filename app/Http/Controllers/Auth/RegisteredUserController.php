@@ -12,6 +12,15 @@ use Illuminate\Support\Facades\Storage;
 
 class RegisteredUserController extends Controller
 {
+    public function register()
+    {
+        $departments = Department::orderBy('created_at', 'desc')->get();
+        
+        return view('auth.register', [
+            'departments' => $departments
+        ]);
+    }
+
     public function index()
     {
         $users = User::orderBy('created_at', 'desc')->paginate(10);

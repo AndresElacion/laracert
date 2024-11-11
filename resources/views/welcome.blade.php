@@ -158,7 +158,7 @@
                             <h2 class="text-3xl font-semibold text-gray-800 mb-6">Ready to get started?</h2>
                             <p class="text-gray-600 mb-4">Join thousands of users who have already discovered the ease of e-certification!</p>
                             <button class="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
-                                <a href="./register.php">Create Your Account</a>
+                                <a href="{{ route('register') }}">Create Your Account</a>
                             </button>
                         </div>
                     </section>
