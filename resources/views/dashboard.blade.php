@@ -50,8 +50,12 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $request->created_at->format('Y-m-d H:i') }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
+                                        <td class="px-6 py-4 whitespace-nowrap space-x-2">
                                             @if($request->status === 'approved')
+                                                <a href="{{ route('certificates.preview', ['certificate' => $request->id]) }}"
+                                                   class="text-blue-600 hover:text-blue-900 mr-2">
+                                                    View Certificate
+                                                </a>
                                                 @if(!$request->downloaded_at)
                                                     <a href="{{ route('certificates.download', ['certificate' => $request->id]) }}"
                                                        class="text-blue-600 hover:text-blue-900">
@@ -61,6 +65,10 @@
                                                     <span class="text-gray-500">Certificate Downloaded</span>
                                                 @endif
                                             @elseif($request->status === 'pending')
+                                                <a href="{{ route('certificates.preview', ['certificate' => $request->id]) }}"
+                                                   class="text-blue-600 hover:text-blue-900 mr-2">
+                                                    Preview Certificate
+                                                </a>
                                                 <span class="text-yellow-600">Pending Review</span>
                                             @else
                                                 <span class="text-red-600">Request Denied</span>

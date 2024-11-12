@@ -79,6 +79,9 @@ Route::middleware(['auth'])->group(function () {
     
     Route::delete('/certificate-categories/{certificate_category}', [CertificateTemplateCategoryController::class, 'destroy'])
         ->name('admin.certificate-categories.destroy');
+
+    Route::get('/certificates/{certificate}/preview', [CertificateController::class, 'preview'])
+        ->name('certificates.preview');
 });
 
 
