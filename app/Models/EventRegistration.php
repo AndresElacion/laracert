@@ -22,4 +22,9 @@ class EventRegistration extends Model
     {
         return $this->hasOne(CertificateRequest::class);
     }
+
+    public function certificateTemplateCategory()
+    {
+        return $this->belongsTo(CertificateTemplateCategory::class);
+    }
 }

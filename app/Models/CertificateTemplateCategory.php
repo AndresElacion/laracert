@@ -12,4 +12,9 @@ class CertificateTemplateCategory extends Model
     {
         return $this->hasMany(Event::class, 'certificate_template_category_id');
     }
+
+    public function eventRegistration()
+    {
+        return $this->hasMany(EventRegistration::class);
+    }
 }
