@@ -189,4 +189,25 @@ class CertificateController extends Controller
 
         return view('admin.certificates.index', compact('certificates'));
     }
+
+    public function preview($id)
+    {
+        $certificate = CertificateRequest::with([
+            'eventRegistration' => function($query) {
+                $query->with(['event', 'user']);
+            }
+        ])->findOrFail($id);
+
+        $coordinators = CertificateRequest::with([
+            'eventRegistration' => function($query){
+                $query->with(['event' => function($query){
+                    $query->with(['eventCoordinators' => function($query){
+                        $query->with(['coordinators']);
+                    }]);
+                }]);
+            }
+        ])->findOrFail($id);
+
+        return view('certificates.preview', compact('certificate', 'coordinators'));
+    }
 }
