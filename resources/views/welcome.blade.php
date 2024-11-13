@@ -84,6 +84,55 @@
                         </div>
                     </section>
 
+                    <!-- Events -->
+                    <div class="container mx-auto px-4">
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg my-8">
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h2 class="text-2xl font-bold">Upcoming Events</h2>
+                                </div>
+
+                                @if ($upcomingEvents->isEmpty())
+                                    <div class="text-center py-8">
+                                        <p class="text-gray-500">No upcoming events at the moment.</p>
+                                    </div>
+                                @else
+                                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                                        @foreach($upcomingEvents->take(4) as $event)
+                                        <div class="bg-white hover:bg-gray-100 rounded-lg shadow-md overflow-hidden transition-all duration-300 transform hover:scale-[102%]">
+                                            <div class="md:flex">
+                                                <div class="md:flex-shrink-0">
+                                                </div>
+                                                <div class="p-6">
+                                                    <div class="flex items-center text-sm text-indigo-500">
+                                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                        </svg>
+                                                        {{ $event->event_date->format('F d, Y - h:i A') }}
+                                                    </div>
+                                                    <p class="block mt-1 text-lg leading-tight font-medium text-black">
+                                                        {{ $event->name }}
+                                                    </p>
+                                                    <p class="mt-2 text-gray-500">
+                                                        {{ $event->description }}
+                                                    </p>
+                                                    <div class="mt-4">
+                                                        <a href="{{ route('events.index') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                                                        Join Now
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    
+
                     <!-- FAQ Section -->
                     <section id="faq" class="py-16 bg-white">
                         <div class="container mx-auto px-4">
