@@ -44,17 +44,19 @@
                                     @endif
                                 </div>
 
-                                <p class="text-gray-600 mb-4 line-clamp-3">{{ $event->description }}</p>
+                                <p class="text-gray-600 mb-4 line-clamp-3">{{ Str::limit($event->description, 120) }}</p>
 
                                 @if(isset($event->coordinators))
-                                    @foreach($event->coordinators as $coordinator)
-                                        <div class="flex items-center space-x-2 text-gray-600 line-clamp-3">
-                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/>
-                                            </svg>
-                                            <span>{{ $coordinator->name }}</span>
-                                        </div>
-                                    @endforeach
+                                    <div class="grid grid-cols-2">
+                                        @foreach($event->coordinators as $coordinator)
+                                            <div class="flex items-center space-x-2 text-gray-600 line-clamp-3">
+                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z"/>
+                                                </svg>
+                                                <span>{{ $coordinator->name }}</span>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 @endif
 
                                 <div class="mt-auto space-y-2">
