@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="prose max-w-none mb-8">
-                        <p class="text-gray-700">{{ $event->description }}</p>
+                        <p class="text-gray-600 mb-4">{!! nl2br($event->description) !!}</p>
                     </div>
 
                     
