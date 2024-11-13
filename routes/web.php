@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Event;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
@@ -11,7 +12,16 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CertificateTemplateCategoryController;
 
 Route::get('/', function () {
-    return view('welcome');
+    $upcomingEvents = Event::where('event_date', '>=', now())
+        ->with('certificateTemplateCategory')
+        ->with(['eventCoordinators' => function($query){
+            $query->with(['coordinators']);
+        }])
+        ->orderBy('event_date')
+        ->take(4)
+        ->get();
+        
+    return view('welcome', compact('upcomingEvents'));
 });
 
 Route::get('/dashboard', function () {
