@@ -115,7 +115,7 @@
                                                         {{ $event->name }}
                                                     </p>
                                                     <p class="mt-2 text-gray-500">
-                                                        {{ $event->description }}
+                                                        {{ Str::limit($event->description, 120) }}
                                                     </p>
                                                     <div class="mt-4">
                                                         <a href="{{ route('events.index') }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
