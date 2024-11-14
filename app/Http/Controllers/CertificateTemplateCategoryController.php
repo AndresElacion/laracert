@@ -45,23 +45,23 @@ class CertificateTemplateCategoryController extends Controller
             ->with('success', 'Category created successfully');
     }
 
-    public function edit(CertificateTemplateCategory $category)
+    public function edit(CertificateTemplateCategory $certificate_category)
     {
-        return view('admin.certificate-categories.edit', compact('category'));
+        return view('admin.certificate-categories.edit', compact('certificate_category'));
     }
 
-    public function update(Request $request, CertificateTemplateCategory $category)
+    public function update(Request $request, CertificateTemplateCategory $certificate_category)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:certificate_template_categories,name,' . $category->id,
+            'name' => 'required|string|max:255|unique:certificate_template_categories,name,' . $certificate_category->id,
             'description' => 'nullable|string',
             'certificate_template' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
         ]);
 
         if ($request->hasFile('certificate_template') && $request->file('certificate_template')->isValid()) {
             // Delete the old file if it exists
-            if ($category->certificate_template) {
-                Storage::disk('public')->delete($category->certificate_template);
+            if ($certificate_category->certificate_template) {
+                Storage::disk('public')->delete($certificate_category->certificate_template);
             }
             
             // Store the new image file
@@ -70,16 +70,16 @@ class CertificateTemplateCategoryController extends Controller
         }
 
         // Update the category record
-        $category->update($validated);
+        $certificate_category->update($validated);
 
         return redirect()
             ->route('admin.certificate-categories.index')
             ->with('success', 'Category updated successfully');
     }
 
-    public function destroy(CertificateTemplateCategory $category)
+    public function destroy(CertificateTemplateCategory $certificate_category)
     {
-        $category->delete();
+        $certificate_category->delete();
         return redirect()
             ->route('admin.certificate-categories.index')
             ->with('success', 'Category deleted successfully');
