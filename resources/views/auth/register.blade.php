@@ -1,19 +1,19 @@
 <x-guest-layout>
-    <main class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('{{ asset('img/background_overlay.png') }}'); background-size: 50%; background-repeat: no-repeat;">
+    <main class="min-h-screen flex items-center justify-center bg-cover bg-center p-4 md:p-8" style="background-image: url('{{ asset('img/background_overlay.png') }}'); background-size: 50%; background-repeat: no-repeat;">
         
-        <div class="bg-white bg-opacity-80 max-w-3xl w-full p-8 rounded-lg shadow-lg">
+        <div class="bg-white bg-opacity-80 w-full max-w-3xl p-4 md:p-8 rounded-lg shadow-lg">
 
-            <h1 class="text-3xl text-slate-800 font-bold mb-6 text-center">Register</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold mb-4 md:mb-6 text-center">Register</h1>
 
             <!-- Sign Up / Login -->
-            <div class="pt-5 my-6 border-t border-slate-200 text-center">
-                <div class="text-sm space-x-5">
+            <div class="pt-4 my-4 md:my-6 border-t border-slate-200 text-center">
+                <div class="text-sm flex justify-center gap-4">
                     <a href="{{ route('login')}}" 
-                        class="border border-transparent rounded-md font-semibold text-xs px-4 py-2 mt-2 bg-gray-400 hover:bg-pink-600 text-white transition-colors duration-200">
+                        class="border border-transparent rounded-md font-semibold text-xs px-4 py-2 bg-gray-400 hover:bg-pink-600 text-white transition-colors duration-200">
                         Login
                     </a>
                     <a href="{{ route('register')}}" 
-                        class="border border-transparent rounded-md font-semibold text-xs px-4 py-2 mt-2 bg-pink-500 hover:bg-pink-600 text-white transition-colors duration-200">
+                        class="border border-transparent rounded-md font-semibold text-xs px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white transition-colors duration-200">
                         Sign up
                     </a>
                 </div>
@@ -25,7 +25,7 @@
             <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                 @csrf
 
-                <div class="grid grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 
                     <!-- First Name -->
                     <div>
@@ -65,8 +65,8 @@
                     <!-- Department -->
                     <div>
                         <x-input-label for="department_id" :value="__('Department')" />
-                        <select name="department_id" id="department_id">
-                            <option value="">Choose department</option>
+                        <select name="department_id" id="department_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                            <option value="">Choose departmet</option>
                             @foreach($departments as $department)
                                 <option value="{{ $department->id }}">{{ $department->name }}</option>
                             @endforeach
@@ -89,33 +89,33 @@
                     </div>
 
                     <!-- Student ID Image -->
-                    <div class="col-span-3">
+                    <div class="col-span-1 md:col-span-2 lg:col-span-3">
                         <x-input-label for="student_id_image" :value="__('Student ID Image')" />
                         <x-text-input id="student_id_image" class="block mt-1 w-full" type="file" name="student_id_image" required />
                         <x-input-error :messages="$errors->get('student_id_image')" class="mt-2" />
                     </div>
 
                     <!-- Password -->
-                    <div>
+                    <div class="col-span-1 md:col-span-1">
                         <x-input-label for="password" :value="__('Password')" />
                         <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
                     <!-- Confirm Password -->
-                    <div>
+                    <div class="col-span-1 md:col-span-1">
                         <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
                         <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end mt-4">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+                <div class="flex flex-col md:flex-row items-center justify-end gap-4 mt-6">
+                    <a class="text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                         {{ __('Already registered?') }}
                     </a>
 
-                    <x-primary-button class="ml-4">
+                    <x-primary-button>
                         {{ __('Register') }}
                     </x-primary-button>
                 </div>

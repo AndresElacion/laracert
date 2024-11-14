@@ -45,7 +45,7 @@
         <section class="flex items-center justify-center h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
             <div class="container mx-auto px-4 py-20">
                 <div class="flex flex-col lg:flex-row items-center justify-between">
-                    <div class="lg:w-1/2 mb-10 lg:mb-0">
+                    <div class="lg:w-1/2 my-10 lg:mb-0">
                         <h2 class="text-5xl font-bold text-gray-900 mb-6">
                             Taguig City University <br/>
                             <span class="text-pink-500">E-Certificate System</span>
