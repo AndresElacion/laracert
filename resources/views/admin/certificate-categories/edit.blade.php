@@ -10,7 +10,7 @@
             </div>
 
             <div class="bg-white shadow-md rounded-lg p-6">
-                <form action="{{ route('admin.certificate-categories.update', $category) }}" method="POST">
+                <form action="{{ route('admin.certificate-categories.update', $certificate_category) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -19,7 +19,7 @@
                         <input type="text" 
                             name="name" 
                             id="name" 
-                            value="{{ old('name', $category->name) }}"
+                            value="{{ old('name', $certificate_category->name) }}"
                             class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 @error('name') border-red-500 @enderror"
                             required>
                         @error('name')
@@ -32,7 +32,7 @@
                         <textarea name="description" 
                                 id="description" 
                                 rows="3"
-                                class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 @error('description') border-red-500 @enderror">{{ old('description', $category->description) }}</textarea>
+                                class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 @error('description') border-red-500 @enderror">{{ old('description', $certificate_category->description) }}</textarea>
                         @error('description')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
