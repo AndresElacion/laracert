@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Event;
+use App\Models\CertificateRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
@@ -20,8 +21,14 @@ Route::get('/', function () {
         ->orderBy('event_date')
         ->take(4)
         ->get();
+
+    $certificates = CertificateRequest::with([
+        'eventRegistration' => function($query) {
+            $query->with(['event.certificateTemplateCategory']);
+        }
+    ])->take(3)->get();
         
-    return view('welcome', compact('upcomingEvents'));
+    return view('welcome', compact('upcomingEvents', 'certificates'));
 });
 
 Route::get('/dashboard', function () {

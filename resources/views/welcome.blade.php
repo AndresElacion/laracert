@@ -98,12 +98,18 @@
                         </ul>
                     </div>
                     <div class="lg:w-1/2 grid grid-cols-2 gap-4">
-                        <img src="./img/template_1.jpg" alt="Certificate Template 1" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                        <img src="./img/template_2.png" alt="Certificate Template 2" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                        <img src="./img/template_3.jpg" alt="Certificate Template 3" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                        <div class="bg-pink-500 rounded-lg shadow-lg p-6 flex items-center justify-center hover:scale-105 transition-transform duration-300">
-                            <span class="text-white text-xl font-bold">And More...</span>
-                        </div>
+                        @foreach ($certificates as $certificate)
+                            <img src="{{ asset('storage/' . ($certificate->eventRegistration->event->certificate_template ?? 
+                                                        $certificate->eventRegistration->event->certificateTemplateCategory->certificate_template ?? 'default_image.jpg')) }}" 
+                                alt="Certificate Template" 
+                                class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
+                        @endforeach
+
+                        @if($certificates->count() >= 3)
+                            <div class="bg-pink-500 rounded-lg shadow-lg p-6 flex items-center justify-center hover:scale-105 transition-transform duration-300">
+                                <span class="text-white text-xl font-bold">And More...</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
