@@ -11,7 +11,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-5 sm:-my-px sm:ms-10 lg:flex text-nowrap">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -26,26 +26,26 @@
 
                     @if(Auth::user()->is_admin)
                         <x-nav-link :href="route('admin.certificates')" :active="request()->routeIs('admin.certificates')">
-                            {{ __('Manage Certificates') }}
+                            {{ __('Certificates') }}
                         </x-nav-link>
                         
                         <x-nav-link :href="route('admin.certificate-categories.index')" :active="request()->routeIs('admin.certificate-categories.index')">
-                            {{ __('Create Certificate Category') }}
+                            {{ __('Certificate Category') }}
                         </x-nav-link>
 
                         <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                            {{ __('Manage Users') }}
+                            {{ __('Users') }}
                         </x-nav-link>
 
                         <x-nav-link :href="route('coordinators.index')" :active="request()->routeIs('coordinators.index')">
-                            {{ __('Manage Coordinators') }}
+                            {{ __('Coordinators') }}
                         </x-nav-link>
                     @endif
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden lg:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
@@ -79,7 +79,7 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
+            <div class="-me-2 flex items-center lg:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -91,11 +91,43 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="hidden lg:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
+                {{ __('Events') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('certificates.my-certificates')" :active="request()->routeIs('certificates.my-certificates')">
+                {{ __('My certificates') }}
+            </x-responsive-nav-link>
+
+            @if(Auth::user()->is_admin)
+                <div class="pt-2 border-t border-gray-200">
+                    <div class="px-4 py-2">
+                        <span class="text-base font-medium text-gray-600">Admin Menu</span>
+                    </div>
+                    
+                    <x-responsive-nav-link :href="route('admin.certificates')" :active="request()->routeIs('admin.certificates')">
+                        {{ __('Manage Certificates') }}
+                    </x-responsive-nav-link>
+                    
+                    <x-responsive-nav-link :href="route('admin.certificate-categories.index')" :active="request()->routeIs('admin.certificate-categories.index')">
+                        {{ __('Certificate Categories') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                        {{ __('Manage Users') }}
+                    </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('coordinators.index')" :active="request()->routeIs('coordinators.index')">
+                        {{ __('Manage Coordinators') }}
+                    </x-responsive-nav-link>
+                </div>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
