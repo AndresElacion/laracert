@@ -24,15 +24,15 @@
                         {{ __('My certificates') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.certificates')" :active="request()->routeIs('admin.certificates')">
-                        {{ __('Manage Certificates') }}
-                    </x-nav-link>
-                    
-                    <x-nav-link :href="route('admin.certificate-categories.index')" :active="request()->routeIs('admin.certificate-categories.index')">
-                        {{ __('Create Certificate Category') }}
-                    </x-nav-link>
-
                     @if(Auth::user()->is_admin)
+                        <x-nav-link :href="route('admin.certificates')" :active="request()->routeIs('admin.certificates')">
+                            {{ __('Manage Certificates') }}
+                        </x-nav-link>
+                        
+                        <x-nav-link :href="route('admin.certificate-categories.index')" :active="request()->routeIs('admin.certificate-categories.index')">
+                            {{ __('Create Certificate Category') }}
+                        </x-nav-link>
+
                         <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                             {{ __('Manage Users') }}
                         </x-nav-link>
