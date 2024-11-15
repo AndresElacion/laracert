@@ -5,6 +5,7 @@ use App\Models\CertificateRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
+use App\Models\CertificateTemplateCategory;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CoordinatorController;
@@ -22,11 +23,7 @@ Route::get('/', function () {
         ->take(4)
         ->get();
 
-    $certificates = CertificateRequest::with([
-        'eventRegistration' => function($query) {
-            $query->with(['event.certificateTemplateCategory']);
-        }
-    ])->take(3)->get();
+    $certificates = CertificateTemplateCategory::orderBy('name')->take(3)->get();
         
     return view('welcome', compact('upcomingEvents', 'certificates'));
 });
