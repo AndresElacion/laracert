@@ -45,7 +45,7 @@
         <section class="flex items-center justify-center h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
             <div class="container mx-auto px-4 py-20">
                 <div class="flex flex-col lg:flex-row items-center justify-between">
-                    <div class="lg:w-1/2 my-10 lg:mb-0">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0">
                         <h2 class="text-5xl font-bold text-gray-900 mb-6">
                             Taguig City University <br/>
                             <span class="text-pink-500">E-Certificate System</span>
@@ -99,8 +99,7 @@
                     </div>
                     <div class="lg:w-1/2 grid grid-cols-2 gap-4">
                         @foreach ($certificates as $certificate)
-                            <img src="{{ asset('storage/' . ($certificate->eventRegistration->event->certificate_template ?? 
-                                                        $certificate->eventRegistration->event->certificateTemplateCategory->certificate_template ?? 'default_image.jpg')) }}" 
+                            <img src="{{ asset('storage/' . $certificate->certificate_template)}}" 
                                 alt="Certificate Template" 
                                 class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
                         @endforeach

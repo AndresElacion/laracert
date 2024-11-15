@@ -39,6 +39,18 @@
                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                     Edit Event
                                 </a>
+
+                                <!-- Add the delete form here -->
+                                <form action="{{ route('events.destroy', $event) }}" 
+                                    method="POST" 
+                                    onsubmit="return confirm('Are you sure you want to delete this event? This action cannot be undone.');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" 
+                                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm">
+                                        Delete Event
+                                    </button>
+                                </form>
                             @endif
                         </div>
                     </div>
