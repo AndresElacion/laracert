@@ -175,4 +175,17 @@ class EventController extends Controller
 
         return Storage::download($event->certificate_template);
     }
+
+    public function destroy(Event $event)
+    {
+        if ($event->certificate_template) {
+            Storage::delete($event->certificate_template);
+        }
+
+        $event->delete();
+
+        return redirect()
+            ->route('events.index')
+            ->with('success', 'Event deleted successfully');
+    }
 }
