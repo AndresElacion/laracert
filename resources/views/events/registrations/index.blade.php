@@ -42,7 +42,18 @@
                                     <tr class="text-center text-nowrap">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm font-medium text-gray-900">
-                                                {{ $registration->user->name }}
+                                                <div class="flex items-center">
+                                                    <div class="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                                                        <span class="text-gray-600 font-medium text-sm">
+                                                            {{ strtoupper(substr($registration->user->first_name, 0, 1) . substr($registration->user->last_name, 0, 1)) }}
+                                                        </span>
+                                                    </div>
+                                                    <div class="ml-3">
+                                                        <h3 class="text-gray-900">
+                                                            {{ $registration->user->first_name }} {{ $registration->user->middle_name }} {{ $registration->user->last_name }}
+                                                        </h3>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
