@@ -65,7 +65,7 @@
 
                             <!-- Year -->
                             <div>
-                                <x-input-label for="year" :value="__('Year')" />
+                                <x-input-label for="year" :value="__('Year Level')" />
                                 <x-text-input id="year" class="block mt-1 w-full" type="text" name="year" :value="old('year', $user->year)" required />
                                 <x-input-error :messages="$errors->get('year')" class="mt-2" />
                             </div>
@@ -85,17 +85,18 @@
                             </div>
 
                             <!-- Student ID Image -->
-                            <div>
-                                <x-input-label for="student_id_image" :value="__('Student ID Image')" />
-                                @if($user->student_id_image)
-                                    <div class="mt-2">
-                                        <img src="{{ Storage::url($user->student_id_image) }}" alt="Student ID" class="w-32 h-32 object-cover">
-                                    </div>
-                                @endif
-                                <input type="file" id="student_id_image" name="student_id_image" class="block mt-1 w-full" />
-                                <x-input-error :messages="$errors->get('student_id_image')" class="mt-2" />
-                            </div>
-
+                                <div>
+                                    <x-input-label for="student_id_image" :value="__('Student ID Image')" />
+                                    @if($user->student_id_image)
+                                        <div class="mt-2">
+                                            <img src="{{ Storage::url($user->student_id_image) }}" alt="Student ID" class="w-32 h-32 object-cover">
+                                        </div>
+                                    @endif
+                                    @if(!Auth::user()->is_admin)
+                                        <input type="file" id="student_id_image" name="student_id_image" class="block mt-1 w-full" />
+                                        <x-input-error :messages="$errors->get('student_id_image')" class="mt-2" />
+                                     @endif
+                                </div>
                             <!-- Is Admin -->
                             <div>
                                 <label for="is_admin" class="inline-flex items-center mt-4">
