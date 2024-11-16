@@ -83,7 +83,7 @@
 
                     <!-- Year -->
                     <div>
-                        <x-input-label for="year" :value="__('Year')" />
+                        <x-input-label for="year" :value="__('Year Level')" />
                         <x-text-input id="year" class="block mt-1 w-full" type="text" name="year" :value="old('year')" required />
                         <x-input-error :messages="$errors->get('year')" class="mt-2" />
                     </div>
