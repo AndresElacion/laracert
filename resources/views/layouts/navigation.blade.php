@@ -20,9 +20,11 @@
                         {{ __('Events') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('certificates.my-certificates')" :active="request()->routeIs('certificates.my-certificates')">
-                        {{ __('My certificates') }}
-                    </x-nav-link>
+                    @if(!Auth::user()->is_admin)
+                        <x-nav-link :href="route('certificates.my-certificates')" :active="request()->routeIs('certificates.my-certificates')">
+                            {{ __('My certificates') }}
+                        </x-nav-link>
+                    @endif
 
                     @if(Auth::user()->is_admin)
                         <x-nav-link :href="route('admin.certificates')" :active="request()->routeIs('admin.certificates')">
