@@ -67,7 +67,7 @@ class RegisteredUserController extends Controller
             'is_admin' => $request->boolean('is_admin', false),
         ]);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully.');
+        return redirect()->route('login')->with('success', 'User created successfully.');
     }
 
     public function edit(User $user)
