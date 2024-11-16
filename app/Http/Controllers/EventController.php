@@ -25,6 +25,7 @@ class EventController extends Controller
             ->with(['eventCoordinators' => function($query){
                         $query->with(['coordinators']);
                     }])
+            ->withCount('registrations')
             ->orderBy('event_date')
             ->paginate(9); // 9 items for 3x3 grid
 
