@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CertificateRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -12,6 +13,17 @@ class DashboardController extends Controller
     {
         $status = $request->query('status', 'pending');
         
+        // Get counts for all statuses
+        $statusCounts = CertificateRequest::query()
+            ->whereHas('eventRegistration', function($query) {
+                $query->where('user_id', Auth::id());
+            })
+            ->select('status', DB::raw('count(*) as total'))
+            ->groupBy('status')
+            ->pluck('total', 'status')
+            ->toArray();
+            
+        // Get filtered certificate requests
         $certificateRequests = CertificateRequest::with(['eventRegistration.event'])
             ->whereHas('eventRegistration', function($query) {
                 $query->where('user_id', Auth::id());
@@ -22,7 +34,14 @@ class DashboardController extends Controller
             ->latest()
             ->paginate(10);
             
-        return view('dashboard', compact('certificateRequests'));
+        // Set default counts for all statuses
+        $counts = [
+            'pending' => $statusCounts['pending'] ?? 0,
+            'approved' => $statusCounts['approved'] ?? 0,
+            'denied' => $statusCounts['denied'] ?? 0,
+        ];
+            
+        return view('dashboard', compact('certificateRequests', 'counts'));
     }
 
     public function approve($id)
