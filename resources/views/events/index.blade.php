@@ -34,7 +34,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($events as $event)
                             <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
-                                <div class="flex justify-between items-start mb-2">
+                                <div class="flex justify-between items-start mb-2 space-x-2">
                                     <h3 class="text-xl font-semibold">{{ $event->name }}</h3>
 
                                     @if($event->event_date->isPast())
@@ -42,6 +42,9 @@
                                     @else
                                         <span class="bg-green-100 text-nowrap text-green-800 text-xs px-2 py-1 rounded">Upcoming</span>
                                     @endif
+                                    <span class="bg-blue-100 text-nowrap text-blue-800 text-xs px-2 py-1 rounded">
+                                        {{ $event->registrations_count }} Registered
+                                    </span>
                                 </div>
 
                                 <p class="text-gray-600 mb-4 line-clamp-3">{{ Str::limit($event->description, 120) }}</p>
@@ -58,13 +61,13 @@
                                     @if(!$event->event_date->isPast())
                                         @if(!$event->hasUserRegistered())
                                             @if(!Auth::user()->is_admin)
-                                                <form action="{{ route('events.register', $event) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" 
-                                                            class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">
-                                                        Register
-                                                    </button>
-                                                </form>
+                                            <form action="{{ route('events.register', $event) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" 
+                                                        class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">
+                                                    Register
+                                                </button>
+                                            </form>
                                             @endif
                                         @endif
                                     @endif
