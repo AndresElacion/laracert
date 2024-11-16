@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CertificateRequest;
 use Illuminate\Http\Request;
+use App\Models\CertificateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -12,6 +13,9 @@ class DashboardController extends Controller
         $status = $request->query('status', 'pending');
         
         $certificateRequests = CertificateRequest::with(['eventRegistration.event'])
+            ->whereHas('eventRegistration', function($query) {
+                $query->where('user_id', Auth::id());
+            })
             ->when($status, function ($query, $status) {
                 return $query->where('status', $status);
             })
@@ -23,7 +27,10 @@ class DashboardController extends Controller
 
     public function approve($id)
     {
-        $certificateRequest = CertificateRequest::findOrFail($id);
+        $certificateRequest = CertificateRequest::whereHas('eventRegistration', function($query) {
+            $query->where('user_id', Auth::id());
+        })->findOrFail($id);
+
         $certificateRequest->update(['status' => 'approved']);
         
         return back()->with('success', 'Certificate request approved successfully');
@@ -35,7 +42,10 @@ class DashboardController extends Controller
             'denial_reason' => 'required|string|max:255'
         ]);
 
-        $certificateRequest = CertificateRequest::findOrFail($id);
+        $certificateRequest = CertificateRequest::whereHas('eventRegistration', function($query) {
+            $query->where('user_id', Auth::id());
+        })->findOrFail($id);
+        
         $certificateRequest->update([
             'status' => 'denied',
             'denial_reason' => $request->denial_reason
