@@ -23,7 +23,7 @@
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Pending Requests</p>
                                 <p class="text-2xl font-semibold {{ request('status') == 'pending' ? 'text-blue-600' : 'text-gray-900' }}">
-                                    {{ $certificateRequests->where('status', 'pending')->count() }}
+                                    {{ $counts['pending'] }}
                                 </p>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Approved Requests</p>
                                 <p class="text-2xl font-semibold {{ request('status') == 'approved' ? 'text-green-600' : 'text-gray-900' }}">
-                                    {{ $certificateRequests->where('status', 'approved')->count() }}
+                                    {{ $counts['approved'] }}
                                 </p>
                             </div>
                         </div>
@@ -55,13 +55,13 @@
                         <div class="flex items-center gap-4">
                             <div class="p-3 rounded-full {{ request('status') == 'denied' ? 'bg-red-100' : 'bg-gray-100' }}">
                                 <svg class="w-6 h-6 {{ request('status') == 'denied' ? 'text-red-600' : 'text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2sm-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Denied Requests</p>
                                 <p class="text-2xl font-semibold {{ request('status') == 'denied' ? 'text-red-600' : 'text-gray-900' }}">
-                                    {{ $certificateRequests->where('status', 'denied')->count() }}
+                                    {{ $counts['denied'] }}
                                 </p>
                             </div>
                         </div>
