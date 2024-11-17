@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\EventRegistrationController;
+use App\Http\Controllers\SingleCertificateController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CertificateTemplateCategoryController;
 
@@ -69,6 +70,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/coordinators/{coordinator}/edit', [CoordinatorController::class, 'edit'])->name('coordinators.edit');
     Route::put('/coordinators/{coordinator}', [CoordinatorController::class, 'update'])->name('coordinators.update');
     Route::delete('/coordinators/{coordinator}', [CoordinatorController::class, 'destroy'])->name('coordinators.destroy');
+    Route::get('/users/{user}/certificate', [SingleCertificateController::class, 'showUserCertificateForm'])->name('users.certificate.create');
+    Route::post('/users/{user}/certificate', [SingleCertificateController::class, 'generateSingleCertificate'])->name('users.certificate.generate');
+    Route::post('/users/{user}/certificate/preview', [SingleCertificateController::class, 'previewSingleCertificate'])->name('users.certificate.preview');
 
 });
 
