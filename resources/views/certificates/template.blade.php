@@ -29,7 +29,7 @@
         }
         .content-wrapper {
             position: absolute;
-            top: 50%;
+            top: calc(50% - 180px); /* Move up by 20px */
             left: calc(50% - 310px);
             transform: translate(-50%, -50%);
             color: black;
@@ -53,45 +53,69 @@
         }
         .coordinators {
             position: relative;
-            margin-top: 100px;
-            height: 400px; /* Adjusted height */
+            margin-top: 110px;
+            height: auto; /* Allow dynamic height based on content */
+            display: flex; /* Use flexbox for positioning */
+            flex-wrap: wrap; /* Allow wrapping for multiple coordinators */
+            justify-content: space-around; /* Evenly distribute coordinators */
+            align-items: center; /* Align coordinators vertically */
+            gap: 40px; /* Space between coordinators */
         }
         .signature {
             font-size: 35px;
-            text-align: center;
+            text-align: center; /* Center-align all text */
             position: absolute;
-            width: 400px; /* Fixed width for signature blocks */
+            width: 550px; /* Match the width of the signature line */
+            margin: 20px auto; /* Add spacing between signatures */
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            align-items: center; /* Center elements horizontally */
+            justify-content: center; /* Center elements vertically */
         }
+
         /* Individual coordinator positioning */
         .coordinator-0 { /* Top left */
             left: 0;
             top: 0;
         }
+
         .coordinator-1 { /* Top right */
             right: 0;
             top: 0;
         }
+
         .coordinator-2 { /* Middle center */
             left: 50%;
             transform: translateX(-50%);
-            top: 120px; /* Adjust this value to control vertical spacing */
-        }
-        .coordinator-3 { /* Bottom left */
-            left: 0;
-            top: 240px; /* Adjust this value to control vertical spacing */
-        }
-        .coordinator-4 { /* Bottom right */
-            right: 0;
-            top: 240px; /* Adjust this value to control vertical spacing */
-        }
-        .signature-line {
-            width: 400px;
-            border-bottom: 2px solid #000;
-            margin: 10px auto;
+            top: 180px; /* Increased spacing */
         }
 
+        .coordinator-3 { /* Bottom left */
+            left: 0;
+            top: 360px; /* Increased spacing */
+        }
+
+        .coordinator-4 { /* Bottom right */
+            right: 0;
+            top: 360px; /* Increased spacing */
+        }
+
+        .signature-line {
+            width: 550px; /* Reduced width for better fit */
+            border-bottom: 2px solid #000;
+            margin: 5px auto; /* Minimized margin for spacing */
+        }
         .coordinator-name {
-            font-size: 50px
+            font-size: 50px; /* Reduced font size */
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 5px 0; /* Minimize spacing above and below */
+            line-height: 1; /* Tighten line height */
+        }
+        .coordinator-title {
+            font-size: 40px; /* Reduced font size */
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0; /* Remove margin */
+            line-height: 1; /* Tighten line height */
         }
     </style>
 </head>
@@ -112,6 +136,7 @@
                     <div class="signature coordinator-{{ $index }}">
                         <div class="signature-line"></div>
                         <p class="coordinator-name">{{ $coordinator->name }}</p>
+                        <p class="coordinator-title">{{ $coordinator->title }}</p>
                     </div>
                 @endforeach
             </div>
