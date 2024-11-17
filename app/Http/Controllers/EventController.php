@@ -77,6 +77,7 @@ class EventController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'event_date' => 'required|date|after:today',
+            'end_date' => 'required|date',
             'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
             'coordinator_id' => 'required|array|max:5',
             'coordinator_id.*' => 'required|exists:coordinators,id'
@@ -120,6 +121,7 @@ class EventController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'event_date' => 'required|date',
+            'end_date' => 'required|date',
             'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
             'coordinator_id' => 'array|max:5',
             'coordinator_id.*' => 'required|exists:coordinators,id'
