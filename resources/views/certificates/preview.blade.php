@@ -40,8 +40,9 @@
                                             <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto">
                                                 @foreach($coordinators->eventRegistration->event->coordinators as $index => $coordinator)
                                                 <div class="text-center">
-                                                    <p class="font-semibold mt-5">{{ $coordinator->name }}</p>
                                                     <div class="border-b border-black w-48 mx-auto"></div>
+                                                    <p class="font-bold mt-1">{{ $coordinator->name }}</p>
+                                                    <p class="italic">{{ $coordinator->title }}</p>
                                                 </div>
                                                 @endforeach
                                             </div>
