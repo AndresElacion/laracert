@@ -21,7 +21,8 @@ class CoordinatorController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'title' => 'required|max:255'
         ]);
 
         Coordinator::create($validated);
@@ -38,7 +39,8 @@ class CoordinatorController extends Controller
     public function update(Request $request, Coordinator $coordinator)
     {
         $validated = $request->validate([
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'title' => 'required|max:255'
         ]);
 
         $coordinator->update($validated);
