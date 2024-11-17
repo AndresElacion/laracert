@@ -132,7 +132,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    {{ $event->event_date->format('F d, Y - h:i A') }}
+                                    {{ $event->event_date->format('F d, Y') }} - {{ $event->end_date->format('F d, Y') }}
                                 </div>
                                 <h4 class="text-xl font-bold text-gray-900 mb-3">{{ $event->name }}</h4>
                                 <p class="text-gray-600 mb-6">{{ Str::limit($event->description, 120) }}</p>
