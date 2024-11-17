@@ -11,7 +11,8 @@ class Event extends Model
     protected $guarded = [];
     
     protected $casts = [
-        'event_date' => 'datetime'
+        'event_date' => 'datetime',
+        'end_date' => 'datetime'
     ];
 
     public function registrations()
