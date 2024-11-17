@@ -89,6 +89,10 @@
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                                 <div class="flex items-center space-x-3">
+                                                    <a href="{{ route('users.certificate.create', $user->id) }}" 
+                                                        class="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:border-blue-700 focus:ring ring-blue-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                                        Generate Certificate
+                                                    </a>
                                                     <a href="{{ route('users.edit', $user) }}" 
                                                        class="text-indigo-600 hover:text-indigo-900 flex items-center">
                                                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
