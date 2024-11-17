@@ -34,14 +34,28 @@
 
                         <div>
                             <label for="event_date" class="block text-sm font-medium text-gray-700">
-                                Event Date and Time
+                                Event Start Date
                             </label>
                             <input type="datetime-local" 
                                    name="event_date" 
                                    id="event_date" 
-                                   value="{{ old('event_date', $event->event_date->format('Y-m-d\TH:i')) }}"
+                                   value="{{ old('event_date', $event->event_date->format('Y-m-d')) }}"
                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
                             @error('event_date')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="end_date" class="block text-sm font-medium text-gray-700">
+                                Event End Date
+                            </label>
+                            <input type="datetime-local" 
+                                   name="end_date" 
+                                   id="end_date" 
+                                   value="{{ old('end_date', $event->end_date->format('Y-m-d')) }}"
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            @error('end_date')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

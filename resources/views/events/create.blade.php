@@ -54,6 +54,20 @@
                         </div>
 
                         <div>
+                            <label for="end_date" class="block text-sm font-medium text-gray-700">
+                                End Date
+                            </label>
+                            <input type="date" 
+                                   id="end_date" 
+                                   name="end_date" 
+                                   required 
+                                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                            @error('end_date')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
                             <label for="coordinator_id" class="block text-sm font-medium text-gray-700">
                                 Event Coordinators (Select up to 5)
                             </label>

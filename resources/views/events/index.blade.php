@@ -37,7 +37,7 @@
                                 <div class="flex justify-between items-start mb-2 space-x-2">
                                     <h3 class="text-xl font-semibold">{{ $event->name }}</h3>
 
-                                    @if($event->event_date->isPast())
+                                    @if($event->end_date->isPast())
                                         <span class="bg-gray-100 text-nowrap text-gray-800 text-xs px-2 py-1 rounded">Past Event</span>
                                     @else
                                         <span class="bg-green-100 text-nowrap text-green-800 text-xs px-2 py-1 rounded">Upcoming</span>
@@ -55,10 +55,10 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
-                                        {{ $event->event_date->format('F d, Y - h:i A') }}
+                                        {{ $event->event_date->format('F d, Y') }} - {{ $event->end_date->format('F d, Y') }}
                                     </div>
 
-                                    @if(!$event->event_date->isPast())
+                                    @if(!$event->end_date->isPast())
                                         @if(!$event->hasUserRegistered())
                                             @if(!Auth::user()->is_admin)
                                             <form action="{{ route('events.register', $event) }}" method="POST">

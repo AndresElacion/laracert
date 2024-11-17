@@ -23,12 +23,12 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
                                           d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
-                                {{ $event->event_date->format('F d, Y - h:i A') }}
+                                {{ $event->event_date->format('F d, Y') }} - {{ $event->end_date->format('F d, Y') }}
                             </div>
                         </div>
                         
                         <div class="flex items-center space-x-4">
-                            @if($event->event_date->isPast())
+                            @if($event->end_date->isPast())
                                 <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">Past Event</span>
                             @else
                                 <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Upcoming</span>
@@ -63,7 +63,7 @@
                         <h3 class="text-lg font-semibold mb-4">Registration & Certificate Status</h3>
                         
                         <div class="space-y-4">
-                            @if(!$event->event_date->isPast())
+                            @if(!$event->end_date->isPast())
                                 @if(!$event->hasUserRegistered())
                                     <form action="{{ route('events.register', $event) }}" method="POST">
                                         @csrf
