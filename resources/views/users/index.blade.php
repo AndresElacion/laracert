@@ -20,6 +20,22 @@
     <div class="py-6 sm:py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg border border-gray-200">
+
+                <div class="p-4">
+                    <div class="flex justify-end items-center">
+                        <!-- Search form -->
+                        <form action="{{ route('users.search') }}" method="GET" class="flex items-center w-full sm:w-auto">
+                            <input type="text" name="search" value="{{ request('search') }}"
+                                class="w-full sm:w-64 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Search users...">
+                            <button type="submit"
+                                    class="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
                 <div class="p-4 sm:p-6 text-gray-900">
                     @if (session('success'))
                         <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6 rounded-r">
