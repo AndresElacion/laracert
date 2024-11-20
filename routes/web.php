@@ -3,6 +3,7 @@
 use App\Models\Event;
 use App\Models\CertificateRequest;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ProfileController;
 use App\Models\CertificateTemplateCategory;
@@ -73,6 +74,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/{user}/certificate', [SingleCertificateController::class, 'showUserCertificateForm'])->name('users.certificate.create');
     Route::post('/users/{user}/certificate', [SingleCertificateController::class, 'generateSingleCertificate'])->name('users.certificate.generate');
     Route::post('/users/{user}/certificate/preview', [SingleCertificateController::class, 'previewSingleCertificate'])->name('users.certificate.preview');
+    Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
 
 });
 
