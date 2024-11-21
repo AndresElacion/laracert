@@ -26,6 +26,21 @@
                         @endif
                     </div>
                     
+                    <div class="mb-5">
+                        <div class="flex justify-end items-center">
+                            <!-- Search form -->
+                            <form action="{{ route('events.search') }}" method="GET" class="flex items-center w-full sm:w-auto">
+                                <input type="text" name="search" value="{{ request('search') }}"
+                                    class="w-full sm:w-64 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Search events...">
+                                <button type="submit"
+                                        class="ml-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+                                    Search
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    
                     @if($events->isEmpty())
                         <div class="text-center py-8">
                             <p class="text-gray-500">No events available at the moment.</p>
