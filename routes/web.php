@@ -14,6 +14,7 @@ use App\Http\Controllers\EventRegistrationController;
 use App\Http\Controllers\SingleCertificateController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CertificateTemplateCategoryController;
+use App\Http\Controllers\EventSearchController;
 
 Route::get('/', function () {
     $upcomingEvents = Event::where('event_date', '>=', now())
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/events/search', [EventSearchController::class, 'search'])->name('events.search');
     Route::resource('events', EventController::class);
     Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
     Route::get('events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
