@@ -15,7 +15,7 @@ class SingleCertificateController extends Controller
         $user = User::findOrFail($userId);
         $events = Event::with([
             'certificateTemplateCategory',
-            'eventCoordinators.coordinators'  // Keep plural as per your model
+            'eventCoordinators.coordinators'  // Keep plural as per model
         ])
         ->whereHas('certificateTemplateCategory')
         ->orderBy('event_date', 'desc')
@@ -36,7 +36,7 @@ class SingleCertificateController extends Controller
         
         $event = Event::with([
             'certificateTemplateCategory',
-            'eventCoordinators.coordinators'  // Keep plural as per your model
+            'eventCoordinators.coordinators'  // Keep plural as per model
         ])->findOrFail($request->event_id);
 
         if (!$event->certificateTemplateCategory) {
@@ -59,7 +59,7 @@ class SingleCertificateController extends Controller
         $user = User::findOrFail($userId);
         $event = Event::with([
             'certificateTemplateCategory',
-            'eventCoordinators.coordinators'  // Keep plural as per your model
+            'eventCoordinators.coordinators'  // Keep plural as per model
         ])->findOrFail($request->event_id);
         
         if (!$event->certificateTemplateCategory) {
@@ -81,24 +81,6 @@ class SingleCertificateController extends Controller
         $coordinators = $event->eventCoordinators->map(function($eventCoordinator) {
             return $eventCoordinator->coordinators;
         })->filter();
-
-        // Debug information
-        \Log::info('Debug Info:', [
-            'event_id' => $event->id,
-            'coordinators_count' => $coordinators->count(),
-            'event_coordinators' => $event->eventCoordinators->toArray(),
-            'final_coordinators' => $coordinators->toArray()
-        ]);
-
-        // Alternative method if the above doesn't work
-        // Use the direct many-to-many relationship
-        if ($coordinators->isEmpty()) {
-            $coordinators = $event->coordinators;
-            \Log::info('Using direct relationship:', [
-                'coordinators_count' => $coordinators->count(),
-                'coordinators_data' => $coordinators->toArray()
-            ]);
-        }
 
         $pdf = PDF::loadView('certificates.single.template', [
             'user' => [
