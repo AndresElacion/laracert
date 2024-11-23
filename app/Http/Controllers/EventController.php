@@ -16,18 +16,13 @@ class EventController extends Controller
 {
     public function index()
     {
-        // Get all upcoming and ongoing events
-        $events = Event::where('event_date', '>=', now())
-            ->orWhereHas('registrations', function($query) {
-                $query->where('user_id', Auth::id());
-            })
-            ->with('certificateTemplateCategory') // Eager load categories
-            ->with(['eventCoordinators' => function($query){
-                        $query->with(['coordinators']);
-                    }])
+        $events = Event::with('certificateTemplateCategory')
+            ->with(['eventCoordinators' => function ($query) {
+                $query->with(['coordinators']);
+            }])
             ->withCount('registrations')
             ->orderBy('event_date')
-            ->paginate(9); // 9 items for 3x3 grid
+            ->paginate(9);
 
         return view('events.index', compact('events'));
     }
