@@ -126,8 +126,7 @@
         <div class="content-wrapper">
             <div class="content">
                 <h2 class="name"><strong>{{ $user->first_name }} {{ $user->middle_name }} {{ $user->last_name }}</strong></h2>
-                <h3>has successfully participated in</h3>
-                <h3><strong>{{ $event->name }}</strong></h3>
+                <h3>{{ $event->certificateTemplateCategory->description }} <strong>{{ $event->name }}</strong></h3>
                 <h3>on {{ $event->event_date->format('F d, Y') }}</h3>
             </div>
 
