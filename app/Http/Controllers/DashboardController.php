@@ -12,35 +12,40 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $status = $request->query('status', 'pending');
-        
+        $user = Auth::user();
+
         // Get counts for all statuses
         $statusCounts = CertificateRequest::query()
-            ->whereHas('eventRegistration', function($query) {
-                $query->where('user_id', Auth::id());
+            ->when(!$user->is_admin, function ($query) use ($user) {
+                $query->whereHas('eventRegistration', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                });
             })
             ->select('status', DB::raw('count(*) as total'))
             ->groupBy('status')
             ->pluck('total', 'status')
             ->toArray();
-            
+
         // Get filtered certificate requests
         $certificateRequests = CertificateRequest::with(['eventRegistration.event'])
-            ->whereHas('eventRegistration', function($query) {
-                $query->where('user_id', Auth::id());
+            ->when(!$user->is_admin, function ($query) use ($user) {
+                $query->whereHas('eventRegistration', function ($query) use ($user) {
+                    $query->where('user_id', $user->id);
+                });
             })
             ->when($status, function ($query, $status) {
                 return $query->where('status', $status);
             })
             ->latest()
             ->paginate(10);
-            
+
         // Set default counts for all statuses
         $counts = [
             'pending' => $statusCounts['pending'] ?? 0,
             'approved' => $statusCounts['approved'] ?? 0,
             'denied' => $statusCounts['denied'] ?? 0,
         ];
-            
+
         return view('dashboard', compact('certificateRequests', 'counts'));
     }
 
