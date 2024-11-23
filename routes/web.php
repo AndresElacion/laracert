@@ -17,12 +17,12 @@ use App\Http\Controllers\CertificateTemplateCategoryController;
 use App\Http\Controllers\EventSearchController;
 
 Route::get('/', function () {
-    $upcomingEvents = Event::where('event_date', '>=', now())
+    $upcomingEvents = Event::where('end_date', '>=', now())
         ->with('certificateTemplateCategory')
         ->with(['eventCoordinators' => function($query){
             $query->with(['coordinators']);
         }])
-        ->orderBy('event_date')
+        ->orderBy('end_date')
         ->take(4)
         ->get();
 
