@@ -144,8 +144,8 @@
                 @foreach($coordinators as $index => $coordinator)
                     <div class="signature coordinator-{{ $index }}">
                         <div class="signature-line"></div>
-                        <div class="coordinator-name">{{ $coordinator->name ?? 'Event Coordinator Name' }}</div>
-                        <div class="coordinator-title">{{ $coordinator->title ?? 'Event Coordinator Title' }}</div>
+                        <div class="coordinator-name">{{ $coordinator->name ?? 'N/A' }}</div>
+                        <div class="coordinator-title">{{ $coordinator->title ?? 'N/A' }}</div>
                     </div>
                 @endforeach
             </div>

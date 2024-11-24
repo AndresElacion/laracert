@@ -31,8 +31,8 @@
                                             <p class="text-3xl font-bold mb-8">
                                                 {{ $certificate->eventRegistration->user->first_name }} {{ $certificate->eventRegistration->user->middle_name }} {{ $certificate->eventRegistration->user->last_name }}
                                             </p>
-                                            <p class="text-xl">has successfully completed</p>
-                                            <p class="text-2xl font-bold mt-4">{{ $certificate->eventRegistration->event->name }}</p>
+                                            <p class="text-xl font-bold">{{ $certificate->eventRegistration->event->description }} {{ $certificate->eventRegistration->event->name }}</p>
+                                            <p class="text-xl font-bold">{{ $certificate->eventRegistration->event->event_date->format('F d, Y') }}</p>
                                         </div>
 
                                         <!-- Signatures -->
