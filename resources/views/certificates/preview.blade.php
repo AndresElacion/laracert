@@ -36,22 +36,23 @@
                                         </div>
 
                                         <!-- Signatures -->
-                                        <div style="margin-top: 3%">
-                                            <div class="grid grid-cols-2 gap-8 max-w-2xl mx-auto">
-                                                @foreach($coordinators->eventRegistration->event->coordinators as $index => $coordinator)
-                                                <div class="text-center">
-                                                    <div class="border-b border-black w-48 mx-auto"></div>
-                                                    <p class="font-bold mt-1">{{ $coordinator->name }}</p>
-                                                    <p class="italic">{{ $coordinator->title }}</p>
+                                        <div class="relative mt-24">
+                                            @foreach($certificate->eventRegistration->event->coordinators as $index => $coordinator)
+                                                <div class="absolute signature" 
+                                                    style="
+                                                        {{ $index === 0 ? 'top: 40px; left: 23%;' : '' }}
+                                                        {{ $index === 1 ? 'top: 40px; right: 23%;' : '' }}
+                                                        {{ $index === 2 ? 'top: 0; left: 50%; transform: translateX(-50%);' : '' }}
+                                                        {{ $index === 3 ? 'bottom: 0; left: 23%;' : '' }}
+                                                        {{ $index === 4 ? 'bottom: 0; right: 23%;' : '' }}
+                                                    ">
+                                                    <div class="signature-line border-b border-black w-40 mx-auto"></div>
+                                                    <p class="coordinator-name text-lg font-bold">{{ $coordinator->name }}</p>
+                                                    <p class="coordinator-title italic text-sm">{{ $coordinator->title }}</p>
                                                 </div>
-                                                @endforeach
-                                            </div>
-                                            
-                                            <!-- Date -->
-                                            <div class="mt-8">
-                                                <p class="text-sm">Issued on: {{ $certificate->created_at->format('F d, Y') }}</p>
-                                            </div>
+                                            @endforeach
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
