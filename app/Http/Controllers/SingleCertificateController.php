@@ -18,7 +18,7 @@ class SingleCertificateController extends Controller
             'eventCoordinators.coordinators'  // Keep plural as per model
         ])
         ->whereHas('certificateTemplateCategory')
-        ->orderBy('event_date', 'desc')
+        ->orderBy('end_date', 'desc')
         ->get();
                       
         return view('certificates.single.create', compact('user', 'events'));
@@ -78,9 +78,13 @@ class SingleCertificateController extends Controller
                     $user->last_name);
 
         // Extract coordinators using the correct relationship name
-        $coordinators = $event->eventCoordinators->map(function($eventCoordinator) {
+        $coordinators = $event->eventCoordinators->map(function ($eventCoordinator) {
             return $eventCoordinator->coordinators;
-        })->filter();
+        })->flatten();
+
+        if ($coordinators->isEmpty()) {
+            $coordinators = collect(); // Avoid errors in the Blade template
+        }
 
         $pdf = PDF::loadView('certificates.single.template', [
             'user' => [
