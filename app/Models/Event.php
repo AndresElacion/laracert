@@ -87,7 +87,7 @@ class Event extends Model
 
     public function eventCoordinators()
     {
-        return $this->hasMany(EventCoordinator::class);
+        return $this->hasMany(EventCoordinator::class, 'event_id', 'id');
     }
 
     // Relationship to Coordinator through EventCoordinator

@@ -20,6 +20,6 @@ class EventCoordinator extends Model
     // Relationship to Coordinator
     public function coordinators()
     {
-        return $this->belongsTo(Coordinator::class);
+        return $this->belongsTo(Coordinator::class, 'coordinator_id', 'id');
     }
 }
