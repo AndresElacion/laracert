@@ -29,11 +29,12 @@
         }
         .content-wrapper {
             position: absolute;
-            top: calc(50% - 180px); /* Move up by 20px */
+            top: calc(50% - 230px); /* Move up by 20px */
             left: calc(50% - 310px);
             transform: translate(-50%, -50%);
             color: black;
             text-align: center;
+            width: 1500px;
         }
         .content {
             font-size: 50px;
@@ -44,7 +45,7 @@
             margin-right: 50px;
             font-weight: bold; /* Added to ensure name is bold */
             line-height: 1.3; /* Added to prevent line overlap */
-            margin-bottom: 80px; /* Added space below the name */
+            margin-bottom: 50px; /* Added space below the name */
         }
         .content h3 {
             margin: 20px 0; /* Reduced margin top and bottom */
@@ -59,7 +60,7 @@
             flex-wrap: wrap; /* Allow wrapping for multiple coordinators */
             justify-content: space-around; /* Evenly distribute coordinators */
             align-items: center; /* Align coordinators vertically */
-            gap: 40px; /* Space between coordinators */
+            gap: 80px; /* Space between coordinators */
         }
         .signature {
             font-size: 35px;
@@ -113,7 +114,7 @@
         }
         .coordinator-title {
             font-size: 40px; /* Reduced font size */
-            font-family: Arial, Helvetica, sans-serif;
+            font-style: italic;
             margin: 0; /* Remove margin */
             line-height: 1; /* Tighten line height */
         }
