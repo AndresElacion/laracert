@@ -85,12 +85,8 @@
                                     @endforeach
                                 </select>
 
-                                <!-- Custom UI for coordinator selection -->
                                 <div id="custom-select" class="border rounded-md border-gray-300 p-2 space-y-2">
-                                    <!-- Selected coordinators will appear here -->
                                     <div id="selected-coordinators" class="space-y-2"></div>
-                                    
-                                    <!-- Dropdown for selecting coordinators -->
                                     <div class="relative">
                                         <select id="coordinator-dropdown" 
                                                 class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
@@ -245,7 +241,6 @@
         }
 
         function updateHiddenSelect() {
-            // Update the hidden select for form submission
             Array.from(hiddenSelect.options).forEach(option => {
                 option.selected = selectedCoordinators.some(c => c.id === option.value);
             });
