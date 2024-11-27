@@ -25,26 +25,28 @@
                             <div class="absolute inset-0">
                                 <div class="relative h-full">
                                     <!-- Certificate Content -->
-                                    <div class="text-center" style="padding-top: 32%; padding-right: 19%;"> <!-- Adjust this percentage to move content up/down -->
+                                    <div class="text-center" style="padding-top: 29%; padding-right: 3%"> <!-- Adjust this percentage to move content up/down -->
                                         <!-- Name section -->
                                         <div>
-                                            <p class="text-3xl font-bold mb-8">
+                                            <p class="text-5xl font-bold mb-2">
                                                 {{ $certificate->eventRegistration->user->first_name }} {{ $certificate->eventRegistration->user->middle_name }} {{ $certificate->eventRegistration->user->last_name }}
                                             </p>
-                                            <p class="text-xl font-bold">{{ $certificate->eventRegistration->event->description }} {{ $certificate->eventRegistration->event->name }}</p>
-                                            <p class="text-xl font-bold">{{ $certificate->eventRegistration->event->event_date->format('F d, Y') }}</p>
+                                            <div class="flex justify-center items-center flex-col">
+                                                <p class="text-xl font-bold text-left max-w-4xl">{{ $certificate->eventRegistration->event->description }} {{ $certificate->eventRegistration->event->name }}</p>
+                                                <p class="text-xl font-bold text-left mb-5">{{ $certificate->eventRegistration->event->event_date->format('F d, Y') }}</p>
+                                            </div>
                                         </div>
 
                                         <!-- Signatures -->
-                                        <div class="relative mt-24">
+                                        <div class="relative mt-16">
                                             @foreach($certificate->eventRegistration->event->coordinators as $index => $coordinator)
                                                 <div class="absolute signature" 
                                                     style="
-                                                        {{ $index === 0 ? 'top: 40px; left: 23%;' : '' }}
-                                                        {{ $index === 1 ? 'top: 40px; right: 23%;' : '' }}
+                                                        {{ $index === 0 ? 'top: 50px; left: 18%;' : '' }}
+                                                        {{ $index === 1 ? 'top: 50px; right: 18%;' : '' }}
                                                         {{ $index === 2 ? 'top: 0; left: 50%; transform: translateX(-50%);' : '' }}
-                                                        {{ $index === 3 ? 'bottom: 0; left: 23%;' : '' }}
-                                                        {{ $index === 4 ? 'bottom: 0; right: 23%;' : '' }}
+                                                        {{ $index === 3 ? 'bottom: 0; left: 20%;' : '' }}
+                                                        {{ $index === 4 ? 'bottom: 0; right: 18%;' : '' }}
                                                     ">
                                                     <div class="signature-line border-b border-black w-40 mx-auto"></div>
                                                     <p class="coordinator-name text-lg font-bold">{{ $coordinator->name }}</p>
