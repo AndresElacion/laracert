@@ -30,43 +30,49 @@
         }
         .content-wrapper {
             position: absolute;
-            top: calc(50% - 180px); /* Move up by 20px */
-            left: calc(50% - 310px);
+            top: calc(50% - 300px); /* Move up by 20px */
+            left: calc(50% - 70px);
             transform: translate(-50%, -50%);
             color: black;
             text-align: center;
+            width: 2500px;
         }
         .content {
             font-size: 50px;
             margin-top: 750px;
         }
         .content .name {
-            font-size: 120px; /* Increased from 90px */
+            font-size: 150px; /* Increased from 90px */
             margin-right: 50px;
             font-weight: bold; /* Added to ensure name is bold */
             line-height: 1.3; /* Added to prevent line overlap */
-            margin-bottom: 80px; /* Added space below the name */
+            margin-bottom: 10px; /* Added space below the name */
+            font-style: italic;
         }
         .content h3 {
-            margin: 20px 0; /* Reduced margin top and bottom */
+            margin: 0; /* Reduced margin top and bottom */
             line-height: 1.2; /* Reduced line height */
             padding: 0; /* Remove any padding */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: left;
         }
         .coordinators {
             position: relative;
             margin-top: 110px;
             height: auto; /* Allow dynamic height based on content */
             display: flex; /* Use flexbox for positioning */
-            flex-wrap: wrap; /* Allow wrapping for multiple coordinators */
-            justify-content: space-around; /* Evenly distribute coordinators */
+            flex-wrap: nowrap; /* Allow wrapping for multiple coordinators */
+            justify-content: center; /* Evenly distribute coordinators */
             align-items: center; /* Align coordinators vertically */
-            gap: 40px; /* Space between coordinators */
+            gap: 20px;
         }
         .signature {
             font-size: 35px;
             text-align: center; /* Center-align all text */
             position: absolute;
-            width: 550px; /* Match the width of the signature line */
+            width: 900px; /* Match the width of the signature line */
             margin: 20px auto; /* Add spacing between signatures */
             display: flex;
             flex-direction: column; /* Stack elements vertically */
@@ -133,10 +139,9 @@
                 @if($remarks)
                     <div class="remarks">
                         <h3><strong>{{ $remarks }}</strong></h3>
+                        <h3><strong>on {{ $event->name }}</strong></h3><br>
                     </div>
                 @endif
-
-                <h3><strong>{{ $event->name }}</strong></h3><br>
                 <h3>on {{ $certificateDate }}</h3>
             </div>
 
