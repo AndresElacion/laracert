@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/events/{event}/registrations/{registration}', [EventRegistrationController::class, 'updateStatus'])->name('events.registrations.update-status');
     Route::get('/admin/certificates', [CertificateController::class, 'showApprovalPage'])->name('admin.certificates');
     Route::post('/admin/certificates/bulk-action', [CertificateController::class, 'bulkAction'])->name('admin.certificates.bulkAction');
+    Route::post('/admin/dashboard/certificates/bulk-action', [DashboardController::class, 'bulkAction'])->name('admin.dashboard.certificates.bulkAction');
     Route::get('/certificates/{certificate}/download', [CertificateController::class, 'download'])->name('certificates.download');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/certificate-requests/{id}/approve', [DashboardController::class, 'approve'])->name('certificate-requests.approve');
