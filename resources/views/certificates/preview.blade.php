@@ -28,12 +28,12 @@
                                     <div class="text-center" style="padding-top: 29%; padding-right: 3%"> <!-- Adjust this percentage to move content up/down -->
                                         <!-- Name section -->
                                         <div>
-                                            <p class="text-5xl font-bold mb-2">
+                                            <p class="text-5xl font-bold mb-2 italic">
                                                 {{ $certificate->eventRegistration->user->first_name }} {{ $certificate->eventRegistration->user->middle_name }} {{ $certificate->eventRegistration->user->last_name }}
                                             </p>
-                                            <div class="flex justify-center items-center flex-col">
-                                                <p class="text-xl font-bold text-left max-w-4xl">{{ $certificate->eventRegistration->event->description }} {{ $certificate->eventRegistration->event->name }}</p>
-                                                <p class="text-xl font-bold text-left mb-5">{{ $certificate->eventRegistration->event->event_date->format('F d, Y') }}</p>
+                                            <div class="flex justify-center items-center flex-col mb-12">
+                                                <p class="text-xl font-bold text-left max-w-3xl">{{ $certificate->eventRegistration->event->description }} {{ $certificate->eventRegistration->event->name }}</p>
+                                                <p class="text-xl font-bold text-left mb-12">{{ $certificate->eventRegistration->event->event_date->format('F d, Y') }}</p>
                                             </div>
                                         </div>
 
