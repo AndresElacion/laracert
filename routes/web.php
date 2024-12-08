@@ -10,11 +10,29 @@ use App\Models\CertificateTemplateCategory;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CoordinatorController;
+use App\Http\Controllers\EventSearchController;
 use App\Http\Controllers\EventRegistrationController;
 use App\Http\Controllers\SingleCertificateController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\CertificateTemplateCategoryController;
-use App\Http\Controllers\EventSearchController;
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->middleware('auth')->name('verification.notice');
+
+    Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+        $request->fulfill();
+        return redirect('/dashboard')->with('verified', true);
+    })->middleware(['auth', 'signed'])->name('verification.verify');
+
+    Route::post('/email/verification-notification', function (\Illuminate\Http\Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return back()->with('message', 'Verification email sent!');
+    })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+});
 
 Route::get('/', function () {
     $upcomingEvents = Event::where('end_date', '>=', now())
@@ -31,7 +49,7 @@ Route::get('/', function () {
     return view('welcome', compact('upcomingEvents', 'certificates'));
 });
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard', [DashboardController::class, 'index'], function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -57,7 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/certificates/bulk-action', [CertificateController::class, 'bulkAction'])->name('admin.certificates.bulkAction');
     Route::post('/admin/dashboard/certificates/bulk-action', [DashboardController::class, 'bulkAction'])->name('admin.dashboard.certificates.bulkAction');
     Route::get('/certificates/{certificate}/download', [CertificateController::class, 'download'])->name('certificates.download');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('/certificate-requests/{id}/approve', [DashboardController::class, 'approve'])->name('certificate-requests.approve');
     Route::post('/certificate-requests/{id}/deny', [DashboardController::class, 'deny'])->name('certificate-requests.deny');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
@@ -106,6 +124,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/certificates/{certificate}/preview', [CertificateController::class, 'preview'])
         ->name('certificates.preview');
 });
-
 
 require __DIR__.'/auth.php';
