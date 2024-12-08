@@ -7,8 +7,11 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\RedirectResponse;
 
 class RegisteredUserController extends Controller
 {
@@ -33,7 +36,7 @@ class RegisteredUserController extends Controller
         return view('users.create', compact('departments'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
@@ -53,7 +56,7 @@ class RegisteredUserController extends Controller
             $studentIdImagePath = $request->file('student_id_image')->store('student_id_images', 'public');
         }
 
-        User::create([
+        $user = User::create([
             'first_name' => $validated['first_name'],
             'middle_name' => $validated['middle_name'],
             'last_name' => $validated['last_name'],
@@ -67,7 +70,11 @@ class RegisteredUserController extends Controller
             'is_admin' => $request->boolean('is_admin', false),
         ]);
 
-        return redirect()->route('login')->with('success', 'User created successfully.');
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect('/email/verify');
     }
 
     public function edit(User $user)

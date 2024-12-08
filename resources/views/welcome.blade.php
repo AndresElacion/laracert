@@ -15,28 +15,36 @@
                 <div class="flex items-center justify-between h-16">
                     <div class="flex items-center">
                         <h1 class="text-2xl font-bold text-pink-500">E-CERT</h1>
-                    </div>
-                    @if (Route::has('login'))
-                        <nav class="flex items-center space-x-4">
+                    </div>                   
+                    <nav class="flex items-center space-x-4">
+                        <a href="#" 
+                            class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
+                            About
+                        </a>
+                        <a href="#" 
+                            class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
+                            Contact Us
+                        </a>
+                        @if (Route::has('login'))
                             @auth
                                 <a href="{{ url('/dashboard') }}" 
-                                   class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
+                                class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
                                     Dashboard
                                 </a>
                             @else
                                 <a href="{{ route('login') }}" 
-                                   class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
+                                class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
                                     Log in
                                 </a>
                                 @if (Route::has('register'))
                                     <a href="{{ route('register') }}" 
-                                       class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors">
+                                    class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors">
                                         Get Started
                                     </a>
                                 @endif
                             @endauth
-                        </nav>
-                    @endif
+                        @endif
+                    </nav>
                 </div>
             </div>
         </header>
