@@ -103,7 +103,7 @@ class EventController extends Controller
         }
 
         // This will send email for new created event
-        $content = "Checkout new event!";
+        $content = $validated['name']; // This will get the event name
 
         $emails = User::orderBy('email')->get();
 
