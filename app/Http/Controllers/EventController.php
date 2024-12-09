@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Event;
 use App\Models\Coordinator;
+use App\Mail\NewsletterMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Models\EventCoordinator;
 use App\Models\Event_coordinator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use App\Models\CertificateTemplateCategory;
-use Illuminate\Support\Carbon;
 
 class EventController extends Controller
 {
@@ -67,7 +70,7 @@ class EventController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
@@ -97,6 +100,15 @@ class EventController extends Controller
                 'event_id' => $event->id, // Use $event->id instead of $id directly
                 'coordinator_id' => $coordinator_id,
             ]);
+        }
+
+        // This will send email for new created event
+        $content = "Checkout new event!";
+
+        $emails = User::orderBy('email')->get();
+
+        foreach ($emails as $user) {
+            Mail::to($user->email)->send(new NewsletterMail($content));
         }
 
         return redirect()->route('events.index')
