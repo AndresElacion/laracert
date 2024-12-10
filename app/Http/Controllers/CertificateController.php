@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use ZipArchive;
 use App\Models\Event;
+use App\Mail\ApprovedMail;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\CertificateRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class CertificateController extends Controller
@@ -25,6 +27,10 @@ class CertificateController extends Controller
         if ($validated['action'] === 'approve') {
             foreach ($certificates as $certificate) {
                 $certificate->update(['status' => 'approved']);
+
+                // Send email notification
+                $content = "Your certificate request has been approved.";
+                Mail::to($certificate->eventRegistration->user->email)->send(new ApprovedMail($content));
             }
         } elseif ($validated['action'] === 'deny') {
             foreach ($certificates as $certificate) {
