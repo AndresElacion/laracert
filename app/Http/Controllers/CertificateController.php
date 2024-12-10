@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use ZipArchive;
 use App\Models\Event;
 use App\Mail\ApprovedMail;
+use App\Mail\DeniedMail;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\CertificateRequest;
@@ -38,6 +39,10 @@ class CertificateController extends Controller
                     'status' => 'denied',
                     'denial_reason' => $request->denial_reason
                 ]);
+
+                // Send email notification
+                $content = "Your certificate request has been denied.";
+                Mail::to($certificate->eventRegistration->user->email)->send(new DeniedMail($content));
             }
         } elseif ($validated['action'] === 'download') {
             return $this->bulkDownload($certificates);
