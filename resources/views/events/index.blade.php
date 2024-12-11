@@ -49,6 +49,9 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($events as $event)
                             <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
+                                <div class="mb-4">
+                                    <img src="{{ asset('storage/' . $event->image)}}" alt="Event Image" class="w-full h-48 object-cover rounded-xl border bg-slate-100">
+                                </div>
                                 <div class="flex justify-between items-start mb-2 space-x-2">
                                     <h3 class="text-xl font-semibold">{{ $event->name }}</h3>
 
