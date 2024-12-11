@@ -76,10 +76,18 @@ class EventController extends Controller
             'description' => 'required|string',
             'event_date' => 'required|date|after:today',
             'end_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
             'coordinator_id' => 'required|array|max:5',
             'coordinator_id.*' => 'required|exists:coordinators,id'
         ]);
+
+        // Check if a file has been uploaded
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Store the image in the 'public/certificates' directory
+            $path = $request->file('image')->store('event', 'public');
+            $validated['image'] = $path;
+        }
 
         if ($request->hasFile('certificate_template')) {
             $path = $request->file('certificate_template')->store('certificates', 'public');
@@ -129,10 +137,22 @@ class EventController extends Controller
             'description' => 'required|string',
             'event_date' => 'required|date',
             'end_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
             'coordinator_id' => 'array|max:5',
             'coordinator_id.*' => 'required|exists:coordinators,id'
         ]);
+
+        if ($request->hasFile('image')) {
+            // Delete old event image if exists
+            if ($event->image) {
+                Storage::delete($event->image);
+            }
+
+            // Store new event image
+            $path = $request->file('image')->store('event', 'public');
+            $validated['image'] = $path;
+        }
 
         if ($request->hasFile('certificate_template')) {
             // Delete old template if exists
