@@ -56,6 +56,9 @@
                     </div>
 
                     <div class="prose max-w-none mb-8">
+                        <div class="mb-4">
+                            <img src="{{ asset('storage/' . $event->image)}}" alt="Event Image" class="w-3/12 rounded-xl border bg-slate-100 p-1">
+                        </div>
                         <p class="text-gray-600 mb-4">{!! nl2br($event->description) !!}</p>
                     </div>
 

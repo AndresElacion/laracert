@@ -40,6 +40,43 @@
                         </div>
 
                         <div>
+                            <label for="image" class="block text-sm font-medium text-gray-700">
+                                Event Image
+                            </label>
+                            <div class="mt-2 space-y-4">
+                                <div class="flex items-center justify-center w-full">
+                                    <label for="image" 
+                                            class="w-full flex flex-col items-center px-4 py-6 bg-white rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-50">
+                                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                        </svg>
+                                        <p class="mt-2 text-sm text-gray-500">
+                                            <span class="font-semibold">Click to upload</span> or drag and drop
+                                        </p>
+                                        <p class="text-xs text-gray-500">JPG, JPEG, PNG (Max. 5MB)</p>
+                                        <input type="file" 
+                                                name="image" 
+                                                id="image"
+                                                accept=".jpg,.jpeg,.png"
+                                                class="hidden"
+                                                onchange="eventImage(this)">
+                                    </label>
+                                </div>
+
+                                <!-- Image Preview -->
+                                <div id="imageEvent" class="hidden mt-4">
+                                    <p class="text-sm text-gray-500 mb-2">Preview:</p>
+                                    <img id="event" src="#" alt="Template preview" class="max-w-md rounded-lg shadow-sm">
+                                </div>
+
+                                @error('certificate_template')
+                                    <p class="text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div>
                             <label for="event_date" class="block text-sm font-medium text-gray-700">
                                 Event Date
                             </label>
@@ -160,6 +197,22 @@
                 reader.onload = function(e) {
                     preview.src = e.target.result;
                     previewDiv.classList.remove('hidden');
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function eventImage(input) {
+            const event = document.getElementById('event');
+            const eventDiv = document.getElementById('imageEvent');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    event.src = e.target.result;
+                    eventDiv.classList.remove('hidden');
                 }
                 
                 reader.readAsDataURL(input.files[0]);
