@@ -21,7 +21,7 @@
                             class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
                             About
                         </a>
-                        <a href="#" 
+                        <a href="#contact" 
                             class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
                             Contact Us
                         </a>
@@ -247,6 +247,71 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-4">Contact Us</h3>
+                    <p class="text-gray-600">Have questions or need assistance? Reach out to us!</p>
+                </div>
+
+                @if (session('success'))
+                    <div class="max-w-4x mb-4 text-green-600 bg-green-100 p-4 rounded-lg">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                    <form action="{{ route('contact.submit') }}" method="POST" class="space-y-6">
+                        @csrf
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Name -->
+                            <div>
+                                <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+                                <input type="text" id="name" name="name" required 
+                                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:outline-none" 
+                                    placeholder="Your full name">
+                            </div>
+
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                <input type="email" id="email" name="email" required 
+                                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:outline-none" 
+                                    placeholder="Your email address">
+                            </div>
+                        </div>
+
+                        <!-- Subject -->
+                        <div>
+                            <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" required 
+                                class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:outline-none" 
+                                placeholder="Subject of your message">
+                        </div>
+
+                        <!-- Message -->
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                            <textarea id="message" name="message" rows="6" required 
+                                    class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:outline-none" 
+                                    placeholder="Write your message here..."></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" 
+                                    class="px-8 py-3 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-all transform hover:scale-105">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </section>
 
