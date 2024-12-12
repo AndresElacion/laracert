@@ -259,7 +259,7 @@
                 </div>
 
                 @if (session('success'))
-                    <div class="max-w-4x mb-4 text-green-600 bg-green-100 p-4 rounded-lg">
+                    <div id="success-message" class="max-w-4x mb-4 text-green-600 bg-green-100 p-4 rounded-lg">
                         {{ session('success') }}
                     </div>
                 @endif
@@ -334,6 +334,17 @@
                 content.classList.toggle('hidden');
                 arrow.classList.toggle('rotate-180');
             }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const successMessage = document.getElementById('success-message');
+                if (successMessage) {
+                    setTimeout(() => {
+                        successMessage.style.transition = 'opacity 0.5s';
+                        successMessage.style.opacity = '0';
+                        setTimeout(() => successMessage.remove(), 500); // Remove element after fade-out
+                    }, 3000); // Adjust time (3000ms = 3 seconds)
+                }
+            });
         </script>
     </body>
 </html>
