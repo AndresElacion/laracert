@@ -17,7 +17,7 @@
                         <h1 class="text-2xl font-bold text-pink-500">E-CERT</h1>
                     </div>                   
                     <nav class="flex items-center space-x-4">
-                        <a href="#" 
+                        <a href="#about" 
                             class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
                             About
                         </a>
