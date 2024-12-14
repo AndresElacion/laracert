@@ -14,7 +14,7 @@
             <div class="container mx-auto px-4">
                 <div class="flex items-center justify-between h-16">
                     <div class="flex items-center">
-                        <h1 class="text-2xl font-bold text-pink-500">E-CERT</h1>
+                        <h1 class="text-2xl font-bold text-pink-500">CICT</h1>
                     </div>                   
                     <nav class="flex items-center space-x-4">
                         <a href="#about" 
@@ -50,27 +50,17 @@
         </header>
 
         <!-- Hero Section -->
-        <section class="flex items-center justify-center h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
-            <div class="container mx-auto px-4 py-20">
-                <div class="flex flex-col lg:flex-row items-center justify-between">
-                    <div class="lg:w-1/2 mb-10 lg:mb-0">
-                        <h2 class="text-5xl font-bold text-gray-900 mb-6">
-                            Taguig City University <br/>
-                            <span class="text-pink-500">E-Certificate System</span>
-                        </h2>
-                        <p class="text-xl text-gray-600 mb-8">
-                            Official platform for managing and distributing digital certificates for TCU events, seminars, workshops, and academic achievements.
-                        </p>
-                        <div class="flex space-x-4">
-                            <a href="{{ route('register') }}" 
-                               class="px-8 py-3 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-all transform hover:scale-105 shadow-lg">
-                                Get Started
-                            </a>
-                        </div>
+        <section class="relative h-screen w-full">
+        <img src="./img/Hero1.png" alt="Background Image" class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+            <div class="">
+                <div class="absolute inset-0 flex flex-row items-center justify-center">
+                    <img src="./img/tculogo.png" alt="" class="w-40">
+                    <div class="lg:w-5/2 mb-10 text-center lg:mb-0">
+                        <h2 class="text-8xl font-bold text-black mb-3">Taguig City University</h2>
+                        <h2 class="text-6xl text-pink-500">Event Management System</h2>
                     </div>
-                    <div class="lg:w-1/2">
-                        <img src="./img/Hero.png" alt="Hero" class="rounded-lg shadow-2xl w-full transition-all transform hover:scale-105">
-                    </div>
+                    <img src="./img/cictlogo.png" alt="">
                 </div>
             </div>
         </section>
