@@ -64,10 +64,10 @@
 
                 <!-- Main Text -->
                 <div class="lg:max-w-8xl text-center">
-                    <h2 class="text-4xl sm:text-5xl lg:text-9xl font-extrabold text-white mb-4 leading-tight">
+                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight">
                         Taguig City University
                     </h2>
-                    <h3 class="text-2xl sm:text-3xl lg:text-7xl text-pink-500">
+                    <h3 class="text-2xl sm:text-3xl lg:text-5xl text-pink-500">
                         Event Management System
                     </h3>
                 </div>
