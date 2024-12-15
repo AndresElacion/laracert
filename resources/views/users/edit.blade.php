@@ -85,18 +85,28 @@
                             </div>
 
                             <!-- Student ID Image -->
-                                <div>
-                                    <x-input-label for="student_id_image" :value="__('Student ID Image')" />
-                                    @if($user->student_id_image)
-                                        <div class="mt-2">
-                                            <img src="{{ Storage::url($user->student_id_image) }}" alt="Student ID" class="w-32 h-32 object-cover">
-                                        </div>
+                            <div>
+                                <x-input-label for="student_id_image" :value="__('Student ID Image')" />
+                                @if($user->student_id_image)
+                                    <div class="mt-2">
+                                        <img id="currentImage" src="{{ Storage::url($user->student_id_image) }}" alt="Student ID" class="w-32 h-32 object-cover cursor-pointer" onclick="showModal('{{ Storage::url($user->student_id_image) }}')">
+                                    </div>
+                                @endif
+                                @if(!Auth::user()->is_admin)
+                                    <input type="file" id="student_id_image" name="student_id_image" class="block mt-1 w-full" />
+                                    <x-input-error :messages="$errors->get('student_id_image')" class="mt-2" />
                                     @endif
-                                    @if(!Auth::user()->is_admin)
-                                        <input type="file" id="student_id_image" name="student_id_image" class="block mt-1 w-full" />
-                                        <x-input-error :messages="$errors->get('student_id_image')" class="mt-2" />
-                                     @endif
+                            </div>
+
+                            <!-- Modal -->
+                            <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+                                <div class="bg-white p-4 rounded shadow-lg max-w-md">
+                                    <div class="text-red-500 float-right cursor-pointer" onclick="closeModal()">✖</div>
+                                    <img id="modalImage" src="" alt="Preview" class="max-w-full h-auto mt-4">
                                 </div>
+                            </div>
+
+
                             <!-- Is Admin -->
                             <div>
                                 <label for="is_admin" class="inline-flex items-center mt-4">
@@ -117,4 +127,20 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function showModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+
+            modalImage.src = imageSrc; // Set the image source for the modal
+            modal.classList.remove('hidden'); // Display the modal
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden'); // Hide the modal
+        }
+
+    </script>
 </x-app-layout>
