@@ -16,29 +16,29 @@
                     <div class="flex items-center">
                         <h1 class="text-2xl font-bold text-pink-500">CICT</h1>
                     </div>                   
-                    <nav class="flex items-center space-x-4">
+                    <nav class="flex items-center">
                         <a href="#about" 
-                            class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
+                            class="px-2 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
                             About
                         </a>
                         <a href="#contact" 
-                            class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
+                            class="text-nowrap px-2 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
                             Contact Us
                         </a>
                         @if (Route::has('login'))
                             @auth
                                 <a href="{{ url('/dashboard') }}" 
-                                class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
+                                class="px-2 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
                                     Dashboard
                                 </a>
                             @else
                                 <a href="{{ route('login') }}" 
-                                class="px-4 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
+                                class="text-nowrap px-2 py-2 rounded-full text-gray-700 hover:text-pink-500 transition-colors">
                                     Log in
                                 </a>
                                 @if (Route::has('register'))
                                     <a href="{{ route('register') }}" 
-                                    class="px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors">
+                                    class="text-nowrap px-2 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors">
                                         Get Started
                                     </a>
                                 @endif
@@ -51,16 +51,30 @@
 
         <!-- Hero Section -->
         <section class="relative h-screen w-full">
-        <img src="./img/Hero1.png" alt="Background Image" class="absolute inset-0 w-full h-full object-cover">
-        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-            <div class="">
-                <div class="absolute inset-0 flex flex-row items-center justify-center">
-                    <img src="./img/tculogo.png" alt="" class="w-40">
-                    <div class="lg:w-5/2 mb-10 text-center lg:mb-0">
-                        <h2 class="text-8xl font-bold text-black mb-3">Taguig City University</h2>
-                        <h2 class="text-6xl text-pink-500">Event Management System</h2>
-                    </div>
-                    <img src="./img/cictlogo.png" alt="">
+            <!-- Background Image -->
+            <img src="./img/Hero1.png" alt="Background Image" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+            <!-- Content -->
+            <div class="absolute inset-0 flex flex-col lg:flex-row items-center justify-center text-center lg:text-left px-4">
+                <!-- Left Logo -->
+                <div class="mb-6 lg:mb-0 lg:mr-6">
+                    <img src="./img/tculogo.png" alt="TCU Logo" class="w-32 lg:w-40 mx-auto lg:mx-0">
+                </div>
+
+                <!-- Main Text -->
+                <div class="lg:max-w-8xl text-center">
+                    <h2 class="text-4xl sm:text-5xl lg:text-9xl font-extrabold text-white mb-4 leading-tight">
+                        Taguig City University
+                    </h2>
+                    <h3 class="text-2xl sm:text-3xl lg:text-7xl text-pink-500">
+                        Event Management System
+                    </h3>
+                </div>
+
+                <!-- Right Logo -->
+                <div class="mt-6 lg:mt-0 lg:ml-6">
+                    <img src="./img/cictlogo.png" alt="CICT Logo" class="w-32 lg:w-40 mx-auto lg:mx-0">
                 </div>
             </div>
         </section>
@@ -103,6 +117,55 @@
                     </div>
                 </div>
             </div>
+        </section>
+
+        {{-- dev --}}
+        <section class="flex justify-center items-center py-12 bg-gradient-to-br from-pink-500 to-purple-600 text-white">
+            <div class="container mx-auto px-4"> 
+                <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center pb-5">Meet the creator</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
+                        <div class="mb-4">
+                            <img src="/img/dev/anne.png" alt="Event Image" class="w-full h-80 object-cover rounded-xl border">
+                        </div>
+                        <div class="items-start mb-2 space-x-2">
+                            <h3 class="text-xl font-semibold">Amarille, Joanne H.</h3>
+                            <p class="text-black">Fullstack developer</p>
+                        </div>
+                    </div>
+
+                    <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
+                        <div class="mb-4">
+                            <img src="/img/dev/kris.png" alt="Event Image" class="w-full h-80 object-cover rounded-xl border">
+                        </div>
+                        <div class="items-start mb-2 space-x-2">
+                            <h3 class="text-xl font-semibold">Consigo, Kristopper Zimon Carl T.</h3>
+                            <p class="text-black">Front-end developer</p>
+                        </div>
+                    </div>
+
+                    <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
+                        <div class="mb-4">
+                            <img src="/img/dev/abby.png" alt="Event Image" class="w-full h-80 object-cover rounded-xl border">
+                        </div>
+                        <div class="items-start mb-2 space-x-2">
+                            <h3 class="text-xl font-semibold">Garucha, Abby Mhare S.</h3>
+                            <p class="text-black">Back-end developer</p>
+                        </div>
+                    </div>
+
+                    <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
+                        <div class="mb-4">
+                            <img src="/img/dev/michael.png" alt="Event Image" class="w-full h-80 object-cover rounded-xl border">
+                        </div>
+                        <div class="items-start mb-2 space-x-2">
+                            <h3 class="text-xl font-semibold">Maminta, Michael M.</h3>
+                            <p class="text-black">Front-end developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </section>
 
         <!-- Events Section -->
