@@ -1,19 +1,11 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <h2 class="text-2xl font-bold tracking-tight text-gray-900">
-                {{ __('Certificate Dashboard') }}
-            </h2>
-        </div>
-    </x-slot>
-
     <div class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Status Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <a href="{{ route('dashboard', ['status' => 'pending']) }}"
                    class="transform transition-transform hover:scale-105">
-                    <div class="relative overflow-hidden rounded-xl border p-6 {{ request('status') == 'pending' ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-200' }}">
+                    <div class="relative overflow-hidden rounded-xl border p-6 bg-blue-100 border-blue-200">
                         <div class="flex items-center gap-4">
                             <div class="p-3 rounded-full {{ request('status') == 'pending' ? 'bg-blue-100' : 'bg-gray-100' }}">
                                 <svg class="w-6 h-6 {{ request('status') == 'pending' ? 'text-blue-600' : 'text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,7 +24,7 @@
 
                 <a href="{{ route('dashboard', ['status' => 'approved']) }}"
                    class="transform transition-transform hover:scale-105">
-                    <div class="relative overflow-hidden rounded-xl border p-6 {{ request('status') == 'approved' ? 'bg-green-50 border-green-200' : 'bg-white border-gray-200' }}">
+                    <div class="relative overflow-hidden rounded-xl border p-6 bg-green-100 border-green-200">
                         <div class="flex items-center gap-4">
                             <div class="p-3 rounded-full {{ request('status') == 'approved' ? 'bg-green-100' : 'bg-gray-100' }}">
                                 <svg class="w-6 h-6 {{ request('status') == 'approved' ? 'text-green-600' : 'text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +43,7 @@
 
                 <a href="{{ route('dashboard', ['status' => 'denied']) }}"
                    class="transform transition-transform hover:scale-105">
-                    <div class="relative overflow-hidden rounded-xl border p-6 {{ request('status') == 'denied' ? 'bg-red-50 border-red-200' : 'bg-white border-gray-200' }}">
+                    <div class="relative overflow-hidden rounded-xl border p-6 bg-red-100 border-red-200">
                         <div class="flex items-center gap-4">
                             <div class="p-3 rounded-full {{ request('status') == 'denied' ? 'bg-red-100' : 'bg-gray-100' }}">
                                 <svg class="w-6 h-6 {{ request('status') == 'denied' ? 'text-red-600' : 'text-gray-600' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
