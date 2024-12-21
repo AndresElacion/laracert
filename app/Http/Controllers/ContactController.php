@@ -18,7 +18,7 @@ class ContactController extends Controller
 
         // Handle email or database logic here
         Mail::raw($request->message, function ($message) use ($request) {
-            $message->to('andreielacion5@gmail.com')
+            $message->to('marweenbocs@gmail.com')
                     ->subject($request->subject)
                     ->from($request->email, $request->name);
         });
