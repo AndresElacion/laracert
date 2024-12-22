@@ -29,9 +29,19 @@ class CertificateController extends Controller
             foreach ($certificates as $certificate) {
                 $certificate->update(['status' => 'approved']);
 
-                // Send email notification
+                // Generate PDF
+                $pdf = $this->generateCertificate($certificate);
+                $pdfPath = storage_path('app/temp/certificate_' . $certificate->id . '.pdf');
+                $pdf->save($pdfPath);
+
+                // Send email notification with attachment
                 $content = "Your certificate request has been approved.";
-                Mail::to($certificate->eventRegistration->user->email)->send(new ApprovedMail($content));
+                Mail::to($certificate->eventRegistration->user->email)->send(new ApprovedMail($content, $pdfPath));
+
+                // Clean up temporary PDF file
+                if (file_exists($pdfPath)) {
+                    unlink($pdfPath);
+                }
             }
         } elseif ($validated['action'] === 'deny') {
             foreach ($certificates as $certificate) {

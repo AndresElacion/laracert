@@ -9,6 +9,7 @@
     <div style="max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
         <h1 style="color: #333;">Your requested certificate has been approved!</h1>
         <p style="color: #555; font-size: 30px;">{{ $content }}</p>
+        <p style="color: #555;">You can now download your certificate by clicking the link below:</p>
         <p style="color: #555;">Thank you for being with us!</p>
         <footer style="margin-top: 20px; font-size: 0.9em; color: #999;">
             <p>&copy; {{ date('Y') }} Taguig City University . All rights reserved.</p>
