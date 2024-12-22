@@ -3,42 +3,32 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ApprovedMail extends Mailable
 {
+    use Queueable, SerializesModels;
+
     public $content;
+    public $pdfPath;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($content)
+    public function __construct($content, $pdfPath)
     {
         $this->content = $content;
+        $this->pdfPath = $pdfPath;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Request Certificate Status',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.approved',
-            with: ['content' => $this->content]
-        );
+        return $this->view('emails.approved')
+                    ->with(['content' => $this->content])
+                    ->attach($this->pdfPath, [
+                        'as' => 'certificate.pdf',
+                        'mime' => 'application/pdf',
+                    ]);
     }
 }
