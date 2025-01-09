@@ -17,17 +17,34 @@ use App\Models\CertificateTemplateCategory;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::with('certificateTemplateCategory')
-            ->with(['eventCoordinators' => function ($query) {
-                $query->with(['coordinators']);
-            }])
-            ->withCount('registrations')
-            ->orderBy('event_date')
-            ->paginate(9);
+        $filter = $request->query('filter', 'all');
+    
+    $query = Event::query()->orderBy('event_date', 'desc');
+    
+    switch ($filter) {
+        case 'available':
+            $query->where('event_date', '>=', now());
+            break;
+        case 'past':
+            $query->where('event_date', '<', now());
+            break;
+        case 'announcements':
+            $query->where('type', 'announcement');
+            break;
+    }
+    
+    $events = $query->paginate(9);
+        // $events = Event::with('certificateTemplateCategory')
+        //     ->with(['eventCoordinators' => function ($query) {
+        //         $query->with(['coordinators']);
+        //     }])
+        //     ->withCount('registrations')
+        //     ->orderBy('event_date')
+        //     ->paginate(9);
 
-        return view('events.index', compact('events'));
+        return view('events.index', compact('events', 'filter'));
     }
 
     public function show(Event $event)
