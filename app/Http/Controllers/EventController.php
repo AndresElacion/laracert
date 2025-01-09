@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Coordinator;
 use App\Mail\NewsletterMail;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\EventCoordinator;
@@ -18,11 +19,13 @@ use App\Models\CertificateTemplateCategory;
 class EventController extends Controller
 {
     public function index(Request $request)
-    {
-        $filter = $request->query('filter', 'all');
-    
+{
+    $filter = $request->query('filter', 'all');
+
     $query = Event::query()->orderBy('event_date', 'desc');
-    
+
+    $announcement = Announcement::orderBy('created_at', 'desc')->get();
+
     switch ($filter) {
         case 'available':
             $query->where('event_date', '>=', now());
@@ -30,21 +33,18 @@ class EventController extends Controller
         case 'past':
             $query->where('event_date', '<', now());
             break;
-        case 'announcements':
-            $query->where('type', 'announcement');
-            break;
     }
-    
-    $events = $query->paginate(9);
-        // $events = Event::with('certificateTemplateCategory')
-        //     ->with(['eventCoordinators' => function ($query) {
-        //         $query->with(['coordinators']);
-        //     }])
-        //     ->withCount('registrations')
-        //     ->orderBy('event_date')
-        //     ->paginate(9);
 
-        return view('events.index', compact('events', 'filter'));
+    $events = $query->paginate(9);
+
+    return view('events.index', compact('events', 'filter'));
+}
+
+
+    public function createAnnouncement()
+    {
+        $certificateTemplateCategories = CertificateTemplateCategory::all();
+        return view('events.create-announcement', compact('certificateTemplateCategories'));
     }
 
     public function show(Event $event)
@@ -96,7 +96,8 @@ class EventController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'certificate_template_category_id' => 'nullable|exists:certificate_template_categories,id',
             'coordinator_id' => 'required|array|max:5',
-            'coordinator_id.*' => 'required|exists:coordinators,id'
+            'coordinator_id.*' => 'required|exists:coordinators,id',
+            'type' => 'nullable|in:event,announcement',
         ]);
 
         // Check if a file has been uploaded

@@ -18,12 +18,19 @@
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold">Available Events</h2>
                         
-                        @if (auth()->user()->is_admin)
-                            <a href="{{ route('events.create') }}" 
-                               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Create New Event
-                            </a>
-                        @endif
+                        <div class="space-x-3">
+                            @if (auth()->user()->is_admin)
+                                <a href="{{ route('events.create') }}" 
+                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    Create New Event
+                                </a>
+                                
+                                <a href="{{ route('announcements.create') }}" 
+                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Make Announcement
+                                </a>
+                            @endif
+                        </div>
                     </div>
                     
                     <div class="mb-5">
@@ -64,8 +71,8 @@
                                 </div>
                             </a>
                             
-                            <a href="{{ route('events.index', ['filter' => 'announcements']) }}" 
-                            class="transform transition-transform hover:scale-105">
+                            <a href="{{ route('announcements.index') }}" 
+                                class="transform transition-transform hover:scale-105">
                                 <div class="relative overflow-hidden rounded-xl border p-6 
                                     {{ request()->query('filter') === 'announcements' ? 'bg-slate-200' : 'bg-slate-100' }} 
                                     border-green-200">
@@ -74,6 +81,7 @@
                                     </div>
                                 </div>
                             </a>
+
                     </div>
                     
                     {{-- @if($events->isEmpty())
@@ -173,8 +181,8 @@
                                             <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                             </svg>
-                                            <p class="text-gray-500 text-lg font-medium">No certificate requests found</p>
-                                            <p class="text-gray-400 text-sm mt-1">Certificate requests will appear here once created</p>
+                                            <p class="text-gray-500 text-lg font-medium">No events found</p>
+                                            <p class="text-gray-400 text-sm mt-1">Events will appear here once created</p>
                                         </div>
                                     </td>
                                 </tr>

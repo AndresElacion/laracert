@@ -97,4 +97,9 @@ class Event extends Model
                     ->withPivot('event_id', 'coordinator_id')
                     ->withTimestamps();
     }
+
+    public function announcements()
+    {
+        return $this->hasMany(Announcement::class);
+    }
 }
