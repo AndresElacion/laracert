@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\EventSearchController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\EventRegistrationController;
 use App\Http\Controllers\SingleCertificateController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -97,6 +98,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/users/{user}/certificate', [SingleCertificateController::class, 'generateSingleCertificate'])->name('users.certificate.generate');
     Route::post('/users/{user}/certificate/preview', [SingleCertificateController::class, 'previewSingleCertificate'])->name('users.certificate.preview');
     Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
+    Route::resource('announcements', AnnouncementController::class);
 });
 
     Route::post('/contact-submit', [ContactController::class, 'submit'])->name('contact.submit');
