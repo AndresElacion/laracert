@@ -19,26 +19,28 @@ use App\Models\CertificateTemplateCategory;
 class EventController extends Controller
 {
     public function index(Request $request)
-{
-    $filter = $request->query('filter', 'all');
+    {
+        $filter = $request->query('filter', 'all');
 
-    $query = Event::query()->orderBy('event_date', 'desc');
+        $query = Event::query()
+            ->withCount('registrations') // Add this line to count registrations
+            ->orderBy('event_date', 'desc');
 
-    $announcement = Announcement::orderBy('created_at', 'desc')->get();
+        $announcement = Announcement::orderBy('created_at', 'desc')->get();
 
-    switch ($filter) {
-        case 'available':
-            $query->where('event_date', '>=', now());
-            break;
-        case 'past':
-            $query->where('event_date', '<', now());
-            break;
+        switch ($filter) {
+            case 'available':
+                $query->where('event_date', '>=', now());
+                break;
+            case 'past':
+                $query->where('event_date', '<', now());
+                break;
+        }
+
+        $events = $query->paginate(9);
+
+        return view('events.index', compact('events', 'filter'));
     }
-
-    $events = $query->paginate(9);
-
-    return view('events.index', compact('events', 'filter'));
-}
 
 
     public function createAnnouncement()
