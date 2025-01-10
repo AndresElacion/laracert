@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use ZipArchive;
 use App\Models\Event;
-use App\Mail\ApprovedMail;
 use App\Mail\DeniedMail;
+use App\Mail\ApprovedMail;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\CertificateRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,24 +24,34 @@ class CertificateController extends Controller
             'action' => 'required|in:approve,deny,download'
         ]);
 
+        $tempPath = storage_path('app\\temp');
+        if (!File::exists($tempPath)) {
+            File::makeDirectory($tempPath, 0777, true);
+        }
+        
         $certificates = CertificateRequest::whereIn('id', $validated['certificates'])->get();
 
         if ($validated['action'] === 'approve') {
             foreach ($certificates as $certificate) {
                 $certificate->update(['status' => 'approved']);
 
-                // Generate PDF
+                // Generate PDF with proper Windows path
                 $pdf = $this->generateCertificate($certificate);
-                $pdfPath = storage_path('app/temp/certificate_' . $certificate->id . '.pdf');
-                $pdf->save($pdfPath);
+                $pdfPath = storage_path('app\\temp\\certificate_' . $certificate->id . '.pdf');
+                
+                try {
+                    $pdf->save($pdfPath);
+                } catch (\Exception $e) {
+                    throw new \Exception("Failed to save PDF: " . $e->getMessage());
+                }
 
                 // Send email notification with attachment
                 $content = "Your certificate request has been approved.";
                 Mail::to($certificate->eventRegistration->user->email)->send(new ApprovedMail($content, $pdfPath));
 
                 // Clean up temporary PDF file
-                if (file_exists($pdfPath)) {
-                    unlink($pdfPath);
+                if (File::exists($pdfPath)) {
+                    File::delete($pdfPath);
                 }
             }
         } elseif ($validated['action'] === 'deny') {
