@@ -1,7 +1,7 @@
 <x-guest-layout>
-    <main class="min-h-screen flex items-center justify-center bg-cover bg-center" style="background-image: url('{{ asset('img/background_overlay.png') }}'); background-size: 50%; background-repeat: no-repeat;">
+    <main class="min-h-screen flex items-center justify-center bg-cover bg-center" >
         
-        <div class="bg-white bg-opacity-80 max-w-md w-full p-8 rounded-lg shadow-lg">
+        <div class="bg-white bg-opacity-80 max-w-md w-full p-8 rounded-lg shadow-lg border border-slate-200">
 
             <h1 class="text-3xl text-slate-800 font-bold mb-6 text-center">Welcome back! ✨</h1>
 

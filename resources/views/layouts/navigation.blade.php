@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-pink-500 border-b border-gray-100">
+<nav x-data="{ open: false }" class="border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="/">
-                        <h1 class="text-2xl font-bold text-white">CICT</h1>
+                        <h1 class="text-2xl font-bold text-grray-800">CICT</h1>
                     </a>
                 </div>
 

@@ -50,31 +50,26 @@
         </header>
 
         <!-- Hero Section -->
-        <section class="relative h-screen w-full">
-            <!-- Background Image -->
-            <img src="./img/Hero1.png" alt="Background Image" class="absolute inset-0 w-full h-full object-cover">
-            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        <section class="relative h-screen w-full bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 overflow-hidden">
+            <!-- Abstract Background Elements -->
+            <div class="absolute inset-0">
+                <div class="absolute top-20 left-10 w-72 h-72 bg-white opacity-10 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-20 right-10 w-72 h-72 bg-pink-300 opacity-10 rounded-full blur-3xl"></div>
+            </div>
 
             <!-- Content -->
-            <div class="absolute inset-0 flex flex-col lg:flex-row items-center justify-center text-center lg:text-left px-4">
-                <!-- Left Logo -->
-                <div class="mb-6 lg:mb-0 lg:mr-6">
-                    <img src="./img/tculogo.png" alt="TCU Logo" class="w-32 lg:w-40 mx-auto lg:mx-0">
-                </div>
-
+            <div class="relative h-full flex flex-col items-center justify-center px-4 text-center">
                 <!-- Main Text -->
-                <div class="lg:max-w-8xl text-center">
-                    <h2 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight">
-                        Taguig City University
-                    </h2>
-                    <h3 class="text-2xl sm:text-3xl lg:text-5xl text-pink-500">
-                        Event Management System
-                    </h3>
-                </div>
-
-                <!-- Right Logo -->
-                <div class="mt-6 lg:mt-0 lg:ml-6">
-                    <img src="./img/cictlogo.png" alt="CICT Logo" class="w-32 lg:w-40 mx-auto lg:mx-0">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                        Digital Certificate Platform
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-white/90 mb-8 max-w-2xl mx-auto">
+                        Create, manage, and verify digital certificates with ease. Your trusted solution for modern credential management.
+                    </p>
+                    <a href="/register" class="inline-block px-8 py-2 text-lg font-semibold text-white bg-pink-500 rounded-full hover:bg-pink-600 transform hover:scale-105 transition-all duration-200 shadow-lg">
+                        Get Started Today
+                    </a>
                 </div>
             </div>
         </section>
@@ -82,12 +77,14 @@
         <!-- About Section -->
         <section id="about" class="py-20 bg-white">
             <div class="container mx-auto px-4">
-                <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="flex flex-col lg:flex-row justify-center items-center gap-12">
                     <div class="lg:w-1/2">
                         <h3 class="text-3xl font-bold text-gray-900 mb-6">About</h3>
                         <p class="text-lg text-gray-600 mb-6">
-                            Our digital certification platform streamlines the process of creating, distributing, and verifying certificates for all TCU-related activities:
+                            Our digital certification platform streamlines the process of creating, distributing, and verifying certificates:
                         </p>
+                    </div>
+                    <div>
                         <ul class="space-y-4">
                             <li class="flex items-center space-x-3">
                                 <svg class="w-6 h-6 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,63 +106,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="lg:w-1/2 grid grid-cols-2 gap-4">
-                        <img src="/img/event_1.jpg" alt="event_1" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                        <img src="/img/event_2.jpg" alt="event_2" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                        <img src="/img/event_3.jpg" alt="event_3" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                        <img src="/img/event_4.jpg" alt="event_4" class="rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
-                    </div>
                 </div>
             </div>
-        </section>
-
-        {{-- dev --}}
-        <section class="flex justify-center items-center py-12 bg-gradient-to-br from-pink-500 to-purple-600 text-white">
-            <div class="container mx-auto px-4"> 
-                <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center pb-5">Meet the creator</h1>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
-                        <div class="mb-4">
-                            <img src="/img/dev/anne.png" alt="Event Image" class="w-full h-80 object-cover rounded-xl border">
-                        </div>
-                        <div class="items-start mb-2 space-x-2">
-                            <h3 class="text-xl font-semibold">Amarille, Joanne H.</h3>
-                            <p class="text-black">Fullstack developer</p>
-                        </div>
-                    </div>
-
-                    <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
-                        <div class="mb-4">
-                            <img src="/img/dev/kris.png" alt="Event Image" class="w-full h-80 object-cover rounded-xl border">
-                        </div>
-                        <div class="items-start mb-2 space-x-2">
-                            <h3 class="text-xl font-semibold">Consigo, Kristopper Zimon Carl T.</h3>
-                            <p class="text-black">Front-end developer</p>
-                        </div>
-                    </div>
-
-                    <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
-                        <div class="mb-4">
-                            <img src="/img/dev/abby.png" alt="Event Image" class="w-full h-80 object-cover rounded-xl border">
-                        </div>
-                        <div class="items-start mb-2 space-x-2">
-                            <h3 class="text-xl font-semibold">Garucha, Abby Mhare S.</h3>
-                            <p class="text-black">Back-end developer</p>
-                        </div>
-                    </div>
-
-                    <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
-                        <div class="mb-4">
-                            <img src="/img/dev/michael.png" alt="Event Image" class="w-full h-80 object-cover rounded-xl border">
-                        </div>
-                        <div class="items-start mb-2 space-x-2">
-                            <h3 class="text-xl font-semibold">Maminta, Michael M.</h3>
-                            <p class="text-black">Front-end developer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
         </section>
 
         <!-- Events Section -->
@@ -291,8 +233,8 @@
         <!-- CTA Section -->
         <section class="py-20 bg-gradient-to-br from-pink-500 to-purple-600 text-white">
             <div class="container mx-auto px-4 text-center">
-                <h3 class="text-3xl font-bold mb-6">Join TCU's Digital Certificate Platform</h3>
-                <p class="text-xl mb-8 opacity-90">Access and manage your university certificates with ease</p>
+                <h3 class="text-3xl font-bold mb-6">Join Digital Certificate Platform</h3>
+                <p class="text-xl mb-8 opacity-90">Access and manage your certificates with ease</p>
                 <a href="{{ route('register') }}" 
                    class="inline-flex items-center px-8 py-3 rounded-full bg-white text-pink-500 hover:shadow-xl transition-all transform hover:scale-105">
                     Create Your Account
@@ -372,9 +314,9 @@
         <footer class="bg-gray-900 text-gray-400 py-12">
             <div class="container mx-auto px-4">
                 <div class="text-center">
-                    <h4 class="text-2xl font-bold text-white mb-4">E-CERT</h4>
+                    <h4 class="text-2xl font-bold text-white mb-4">Event Certification</h4>
                     <p class="mb-6">Transform your achievements into digital excellence</p>
-                    <p>&copy; 2024 E-CERT System. All rights reserved.</p>
+                    <p>&copy; 2024 Event Certification. All rights reserved.</p>
                 </div>
             </div>
         </footer>
