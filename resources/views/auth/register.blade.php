@@ -1,7 +1,7 @@
 <x-guest-layout>
-    <main class="min-h-screen flex items-center justify-center bg-cover bg-center p-4 md:p-8" style="background-image: url('{{ asset('img/background_overlay.png') }}'); background-size: 50%; background-repeat: no-repeat;">
+    <main class="min-h-screen flex items-center justify-center bg-cover bg-center p-4 md:p-8">
         
-        <div class="bg-white bg-opacity-80 w-full max-w-3xl p-4 md:p-8 rounded-lg shadow-lg">
+        <div class="bg-white bg-opacity-80 w-full max-w-3xl p-4 md:p-8 rounded-lg shadow-lg border border-slate-200">
 
             <h1 class="text-2xl md:text-3xl text-slate-800 font-bold mb-4 md:mb-6 text-center">Register</h1>
 
