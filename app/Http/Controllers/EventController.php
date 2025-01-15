@@ -21,6 +21,7 @@ class EventController extends Controller
     public function index(Request $request)
     {
         $filter = $request->query('filter', 'all');
+        $now = Carbon::now();
 
         $query = Event::query()
             ->withCount('registrations') // Add this line to count registrations
@@ -30,10 +31,10 @@ class EventController extends Controller
 
         switch ($filter) {
             case 'available':
-                $query->where('event_date', '>=', now());
+                $query->where('end_date', '>=', $now);
                 break;
             case 'past':
-                $query->where('event_date', '<', now());
+                $query->where('end_date', '<', $now);
                 break;
         }
 
