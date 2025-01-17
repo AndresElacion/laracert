@@ -52,11 +52,12 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
+        $availableEvents = Event::where('end_date', '>=', Carbon::now())->paginate(6);
         $event->load('certificateTemplateCategory')
         ->with(['eventCoordinators' => function($query){
                         $query->with(['coordinators']);
                     }]); // Ensure category is loaded
-        return view('events.show', compact('event'));
+        return view('events.show', compact('event', 'availableEvents'));
     }
 
     public function register(Event $event)
