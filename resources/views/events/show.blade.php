@@ -127,51 +127,102 @@
                         </div>
                     </div>
 
-                    @if (auth()->user()->is_admin)
-                        <div class="border-t mt-8 pt-6">
-                            <h3 class="text-lg font-semibold mb-4">Administrative Actions</h3>
-                            
-                            <div class="space-y-4">
-                                @if($event->certificate_template)
-                                    <div class="flex items-center space-x-4">
-                                        <p class="text-sm text-gray-600">Certificate Template: Uploaded</p>
-                                        <a href="{{ route('events.download-template', $event) }}" 
-                                           class="text-blue-500 hover:text-blue-700 text-sm">
-                                            View Template
+
+                    <div class="mt-5">
+                        <h1 class="font-bold text-3xl">Available Events:</h1>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+                        @foreach($availableEvents as $event)
+                            <div class="hover:scale-[105%] ease-out border rounded-lg p-4 shadow hover:shadow-md transition duration-300 flex flex-col">
+                                <div class="mb-4">
+                                    <img src="{{ asset('storage/' . $event->image)}}" alt="Event Image" class="w-full h-48 object-cover rounded-xl border bg-slate-100">
+                                </div>
+                                <div class="flex justify-between items-start mb-2 space-x-2">
+                                    <h3 class="text-xl font-semibold">{{ $event->name }}</h3>
+
+                                    @if($event->end_date->isPast())
+                                        <span class="bg-gray-100 text-nowrap text-gray-800 text-xs px-2 py-1 rounded">Past Event</span>
+                                    @else
+                                        <span class="bg-green-100 text-nowrap text-green-800 text-xs px-2 py-1 rounded">Upcoming</span>
+                                    @endif
+                                    <span class="bg-blue-100 text-nowrap text-blue-800 text-xs px-2 py-1 rounded">
+                                        {{ $event->registrations_count }} Registered
+                                    </span>
+                                </div>
+
+                                <p class="text-gray-600 mb-4 line-clamp-3">{{ Str::limit($event->description, 120) }}</p>
+
+                                <div class="mt-auto space-y-2">
+                                    <div class="flex items-center text-sm text-gray-500">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        {{ $event->event_date->format('F d, Y') }} - {{ $event->end_date->format('F d, Y') }}
+                                    </div>
+
+                                    @if(!$event->end_date->isPast())
+                                        @if(!$event->hasUserRegistered())
+                                            @if(!Auth::user()->is_admin)
+                                            <form action="{{ route('events.register', $event) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" 
+                                                        class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">
+                                                    Register
+                                                </button>
+                                            </form>
+                                            @endif
+                                        @endif
+                                    @endif
+
+                                    @if($event->hasUserRegistered())
+                                        <div class="text-sm">
+                                            <span class="text-gray-600">Registration Status:</span>
+                                            <span class="ml-1 font-medium {{ $event->getUserRegistrationStatus() === 'attended' ? 'text-green-600' : 'text-blue-600' }}">
+                                                {{ ucfirst($event->getUserRegistrationStatus()) }}
+                                            </span>
+                                        </div>
+                                    @endif
+
+                                    @if($event->userCanRequestCertificate())
+                                        <form action="{{ route('certificates.request', $event) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" 
+                                                    class="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors duration-200">
+                                                Request Certificate
+                                            </button>
+                                        </form>
+                                    @elseif($event->hasUserRequestedCertificate())
+                                        <div class="text-center bg-gray-100 px-4 py-2 rounded">
+                                            Certificate Status: 
+                                            <span class="font-medium">
+                                                {{ ucfirst($event->getUserCertificateStatus()) }}
+                                            </span>
+                                        </div>
+                                    @endif
+
+                                    @if (auth()->user()->is_admin)
+                                        <a href="{{ route('events.registrations.index', $event) }}" 
+                                        class="flex-1 block text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-200">
+                                            Manage Registrations
+                                        </a>
+                                    @endif
+
+                                    <div class="flex space-x-2">
+                                        <a href="{{ route('events.show', $event) }}" 
+                                        class="flex-1 block text-center text-blue-500 hover:text-blue-700 transition-colors duration-200">
+                                            View Details
                                         </a>
                                     </div>
-                                @endif
+                                </div>
 
-                                <form action="{{ route('events.update-template', $event) }}" 
-                                      method="POST" 
-                                      enctype="multipart/form-data" 
-                                      class="space-y-4">
-                                    @csrf
-                                    @method('PUT')
-                                    
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">
-                                            Update Certificate Template
-                                        </label>
-                                        <input type="file" 
-                                               name="certificate_template" 
-                                               accept=".pdf"
-                                               class="mt-1 block w-full text-sm text-gray-500
-                                                      file:mr-4 file:py-2 file:px-4
-                                                      file:rounded-full file:border-0
-                                                      file:text-sm file:font-semibold
-                                                      file:bg-blue-50 file:text-blue-700
-                                                      hover:file:bg-blue-100">
-                                    </div>
-                                    
-                                    <button type="submit" 
-                                            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
-                                        Upload Template
-                                    </button>
-                                </form>
                             </div>
-                        </div>
-                    @endif
+                        @endforeach
+                    </div>
+                    <div class="mt-6">
+                        {{ $availableEvents->links() }}
+                    </div>
                 </div>
             </div>
         </div>
